@@ -1,3 +1,19 @@
+# macOS
+.DS_Store
+
+# bazel
+bazel
+bazel-bazel-test
+bazel-bin
+bazel-genfiles
+bazel-out
+bazel-testlogs
+bazel-vagrant
+bazel-bazel-example
+.vagrant/
+Vagrantfile
+.idea/
+
 # Compiled class file
 *.class
 

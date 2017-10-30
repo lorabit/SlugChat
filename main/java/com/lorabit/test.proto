@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package lorabit;
+
+option java_package = "com.lorabit";
+option java_outer_classname = "TestProto";
+
+message ContactInfo{
+    string name = 1;
+}
