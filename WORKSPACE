@@ -1,15 +1,24 @@
+git_repository(
+  name = "org_pubref_rules_protobuf",
+  remote = "https://github.com/pubref/rules_protobuf",
+  tag = "v0.8.1",
+)
+
+load("@org_pubref_rules_protobuf//java:rules.bzl", "java_proto_repositories")
+java_proto_repositories()
+
 load("//:generate_workspace.bzl", "generated_maven_jars")
 generated_maven_jars()
 
 ### proto_library rules implicitly depend on @com_google_protobuf//:protoc,
 ### which is the proto-compiler.
 ### This statement defines the @com_google_protobuf repo.
-##http_archive(
-##    name = "com_google_protobuf",
-##    urls = ["https://github.com/google/protobuf/archive/b4b0e304be5a68de3d0ee1af9b286f958750f5e4.zip"],
-##    strip_prefix = "protobuf-b4b0e304be5a68de3d0ee1af9b286f958750f5e4",
-##    sha256 = "ff771a662fb6bd4d3cc209bcccedef3e93980a49f71df1e987f6afa3bcdcba3a",
-##)
+#http_archive(
+#    name = "com_google_protobuf",
+#    urls = ["https://github.com/google/protobuf/archive/b4b0e304be5a68de3d0ee1af9b286f958750f5e4.zip"],
+#    strip_prefix = "protobuf-b4b0e304be5a68de3d0ee1af9b286f958750f5e4",
+#    sha256 = "ff771a662fb6bd4d3cc209bcccedef3e93980a49f71df1e987f6afa3bcdcba3a",
+#)
 #
 ## java_proto_library rules implicitly depend on @com_google_protobuf_java//:java_toolchain,
 ## which is the Java proto runtime (base classes and common utilities).
@@ -60,14 +69,7 @@ generated_maven_jars()
 #    artifact = "com.google.guava:guava:18.0",
 #)
 #
-#git_repository(
-#  name = "org_pubref_rules_protobuf",
-#  remote = "https://github.com/pubref/rules_protobuf",
-#  tag = "v0.8.1",
-#)
-#
-#load("@org_pubref_rules_protobuf//java:rules.bzl", "java_proto_repositories")
-#java_proto_repositories()
+
 #
 #maven_jar(
 #    name = "junit4",
