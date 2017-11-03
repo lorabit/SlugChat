@@ -3,6 +3,7 @@
 
 # bazel
 bazel
+bazel-java
 bazel-bazel-test
 bazel-bin
 bazel-genfiles
