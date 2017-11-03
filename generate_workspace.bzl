@@ -473,10 +473,30 @@ def generated_maven_jars():
       artifact = "com.google.inject.extensions:guice-servlet:3.0",
   )
 
+  native.maven_jar(
+      name = "org_hsqldb_hsqldb",
+      artifact = "org.hsqldb:hsqldb:2.4.0",
+  )
+
+  native.maven_jar(
+      name = "mysql_mysql_connector_java",
+      artifact = "mysql:mysql-connector-java:6.0.6",
+  )
 
 
 def generated_java_libraries():
 
+  native.java_library(
+      name = "mysql_mysql_connector_java",
+      visibility = ["//visibility:public"],
+      exports = ["@mysql_mysql_connector_java//jar"],
+  )
+
+  native.java_library(
+      name = "org_hsqldb_hsqldb",
+      visibility = ["//visibility:public"],
+      exports = ["@org_hsqldb_hsqldb//jar"],
+  )
 
   native.java_library(
       name = "asm_asm",
