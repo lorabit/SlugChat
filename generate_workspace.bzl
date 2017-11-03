@@ -5,6 +5,37 @@
 
 def generated_maven_jars():
 
+  native.maven_jar(
+      name = "org_mybatis_mybatis_guice",
+      artifact = "org.mybatis:mybatis-guice:3.10",
+  )
+
+  native.maven_jar(
+      name = "org_mybatis_mybatis",
+      artifact = "org.mybatis:mybatis:3.4.5",
+  )
+#
+#
+#  native.maven_jar(
+#      name = "io_grpc_grpc_stub",
+#      artifact = "io.grpc:grpc-stub:1.6.1",
+#  )
+
+#
+#  # io.grpc:grpc-core:jar:1.6.1
+#  native.maven_jar(
+#      name = "io_opencensus_opencensus_api",
+#      artifact = "io.opencensus:opencensus-api:0.5.1",
+#      sha1 = "cbd0a716a7d85ac34b83d86b13f0a6655e45c2ba",
+#  )
+#
+
+  # org.sonatype.sisu.inject:cglib:jar:2.2.1-v20090111
+  native.maven_jar(
+      name = "asm_asm",
+      artifact = "asm:asm:3.1",
+      sha1 = "c157def142714c544bdea2e6144645702adf7097",
+  )
 
   native.maven_jar(
       name = "com_google_inject_guice",
@@ -19,36 +50,12 @@ def generated_maven_jars():
       sha1 = "6975da39a7040257bd51d21a231b76c915872d38",
   )
 
-
-  # com.google.guava:guava:bundle:23.0
-  native.maven_jar(
-      name = "com_google_code_findbugs_jsr305",
-      artifact = "com.google.code.findbugs:jsr305:2.0.2",
-      sha1 = "516c03b21d50a644d538de0f0369c620989cd8f0",
-  )
-
-
   # com.google.guava:guava:bundle:23.0
   native.maven_jar(
       name = "org_codehaus_mojo_animal_sniffer_annotations",
       artifact = "org.codehaus.mojo:animal-sniffer-annotations:1.14",
       sha1 = "775b7e22fb10026eed3f86e8dc556dfafe35f2d5",
   )
-
-
-  # com.google.guava:guava:bundle:23.0
-  native.maven_jar(
-      name = "com_google_errorprone_error_prone_annotations",
-      artifact = "com.google.errorprone:error_prone_annotations:2.0.18",
-      sha1 = "5f65affce1684999e2f4024983835efc3504012e",
-  )
-
-
-  native.maven_jar(
-      name = "com_google_guava_guava",
-      artifact = "com.google.guava:guava:23.0",
-  )
-
 
   # com.google.guava:guava:bundle:23.0
   native.maven_jar(
@@ -86,6 +93,13 @@ def generated_maven_jars():
       name = "aopalliance_aopalliance",
       artifact = "aopalliance:aopalliance:1.0",
       sha1 = "0235ba8b489512805ac13a8f9ea77a1ca5ebe3e8",
+  )
+
+  # com.google.inject:guice:jar:3.0
+  native.maven_jar(
+      name = "org_sonatype_sisu_inject_cglib",
+      artifact = "org.sonatype.sisu.inject:cglib:2.2.1-v20090111",
+      sha1 = "07ce5e983fd0e6c78346f4c9cbfa39d83049dda2",
   )
 
 
@@ -454,10 +468,44 @@ def generated_maven_jars():
       sha1 = "c2df91929ed06a25001939929bff5120e0ea3fd4",
   )
 
+  native.maven_jar(
+      name = "com_google_inject_extensions_guice_servlet",
+      artifact = "com.google.inject.extensions:guice-servlet:3.0",
+  )
 
 
 
 def generated_java_libraries():
+
+
+  native.java_library(
+      name = "asm_asm",
+      visibility = ["//visibility:public"],
+      exports = ["@asm_asm//jar"],
+  )
+
+  native.java_library(
+      name = "org_sonatype_sisu_inject_cglib",
+      visibility = ["//visibility:public"],
+      exports = ["@org_sonatype_sisu_inject_cglib//jar"],
+      runtime_deps = [
+          ":asm_asm",
+      ],
+  )
+
+  native.java_library(
+      name = "com_google_inject_extensions_guice_servlet",
+      visibility = ["//visibility:public"],
+      exports = ["@com_google_inject_extensions_guice_servlet//jar"],
+      runtime_deps = [
+          ":aopalliance_aopalliance",
+          ":asm_asm",
+          ":com_google_inject_guice",
+          ":javax_inject_javax_inject",
+          ":org_sonatype_sisu_inject_cglib",
+      ],
+  )
+
   native.java_library(
       name = "ch_qos_logback_logback_classic",
       visibility = ["//visibility:public"],
@@ -1008,4 +1056,160 @@ def generated_java_libraries():
       name = "javax_inject_javax_inject",
       visibility = ["//visibility:public"],
       exports = ["@javax_inject_javax_inject//jar"],
+  )
+
+  native.java_library(
+      name = "io_grpc_grpc_core",
+      visibility = ["//visibility:public"],
+      exports = ["@io_grpc_grpc_core//jar"],
+      runtime_deps = [
+          ":com_google_code_findbugs_jsr305",
+          ":com_google_errorprone_error_prone_annotations",
+          ":com_google_guava_guava",
+          ":com_google_instrumentation_instrumentation_api",
+          ":io_grpc_grpc_context",
+          ":io_opencensus_opencensus_api",
+      ],
+  )
+
+
+  native.java_library(
+      name = "com_google_instrumentation_instrumentation_api",
+      visibility = ["//visibility:public"],
+      exports = ["@com_google_instrumentation_instrumentation_api//jar"],
+      runtime_deps = [
+          ":com_google_code_findbugs_jsr305",
+          ":com_google_errorprone_error_prone_annotations",
+          ":com_google_guava_guava",
+          ":io_grpc_grpc_context",
+      ],
+  )
+
+
+  native.java_library(
+      name = "io_grpc_grpc_context",
+      visibility = ["//visibility:public"],
+      exports = ["@io_grpc_grpc_context//jar"],
+  )
+
+  native.java_library(
+      name = "io_grpc_grpc_stub",
+      visibility = ["//visibility:public"],
+      exports = ["@io_grpc_grpc_stub//jar"],
+      runtime_deps = [
+          ":com_google_code_findbugs_jsr305",
+          ":com_google_errorprone_error_prone_annotations",
+          ":com_google_guava_guava",
+          ":com_google_instrumentation_instrumentation_api",
+          ":io_grpc_grpc_context",
+          ":io_grpc_grpc_core",
+          ":io_opencensus_opencensus_api",
+      ],
+  )
+
+
+  native.java_library(
+      name = "io_opencensus_opencensus_api",
+      visibility = ["//visibility:public"],
+      exports = ["@io_opencensus_opencensus_api//jar"],
+      runtime_deps = [
+          ":com_google_code_findbugs_jsr305",
+          ":com_google_errorprone_error_prone_annotations",
+          ":com_google_guava_guava",
+          ":io_grpc_grpc_context",
+      ],
+  )
+
+
+  native.java_library(
+      name = "io_grpc_grpc_protobuf_lite",
+      visibility = ["//visibility:public"],
+      exports = ["@io_grpc_grpc_protobuf_lite//jar"],
+      runtime_deps = [
+          ":com_google_guava_guava",
+          ":io_grpc_grpc_core",
+      ],
+  )
+
+
+  native.java_library(
+      name = "com_google_protobuf_protobuf_java",
+      visibility = ["//visibility:public"],
+      exports = ["@com_google_protobuf_protobuf_java//jar"],
+  )
+
+
+  native.java_library(
+      name = "com_google_code_gson_gson",
+      visibility = ["//visibility:public"],
+      exports = ["@com_google_code_gson_gson//jar"],
+  )
+
+
+  native.java_library(
+      name = "io_grpc_grpc_protobuf",
+      visibility = ["//visibility:public"],
+      exports = ["@io_grpc_grpc_protobuf//jar"],
+      runtime_deps = [
+          ":com_google_api_grpc_proto_google_common_protos",
+          ":com_google_code_findbugs_jsr305",
+          ":com_google_code_gson_gson",
+          ":com_google_errorprone_error_prone_annotations",
+          ":com_google_guava_guava",
+          ":com_google_instrumentation_instrumentation_api",
+          ":com_google_protobuf_protobuf_java",
+          ":com_google_protobuf_protobuf_java_util",
+          ":io_grpc_grpc_context",
+          ":io_grpc_grpc_core",
+          ":io_grpc_grpc_protobuf_lite",
+          ":io_opencensus_opencensus_api",
+      ],
+  )
+
+  native.java_library(
+      name = "com_google_protobuf_protobuf_java_util",
+      visibility = ["//visibility:public"],
+      exports = ["@com_google_protobuf_protobuf_java_util//jar"],
+      runtime_deps = [
+          ":com_google_code_gson_gson",
+          ":com_google_guava_guava",
+          ":com_google_protobuf_protobuf_java",
+      ],
+  )
+
+
+  native.java_library(
+      name = "com_google_api_grpc_proto_google_common_protos",
+      visibility = ["//visibility:public"],
+      exports = ["@com_google_api_grpc_proto_google_common_protos//jar"],
+      runtime_deps = [
+          ":com_google_protobuf_protobuf_java",
+      ],
+  )
+
+  native.java_library(
+      name = "io_grpc_grpc_core",
+      visibility = ["//visibility:public"],
+      exports = ["@io_grpc_grpc_core//jar"],
+      runtime_deps = [
+          ":com_google_code_findbugs_jsr305",
+          ":com_google_errorprone_error_prone_annotations",
+          ":com_google_guava_guava",
+          ":com_google_instrumentation_instrumentation_api",
+          ":io_grpc_grpc_context",
+          ":io_opencensus_opencensus_api",
+      ],
+  )
+
+
+  native.java_library(
+      name = "org_mybatis_mybatis",
+      visibility = ["//visibility:public"],
+      exports = ["@org_mybatis_mybatis//jar"],
+  )
+
+  native.java_library(
+      name = "org_mybatis_mybatis_guice",
+      visibility = ["//visibility:public"],
+      exports = ["@org_mybatis_mybatis_guice//jar"],
   )
