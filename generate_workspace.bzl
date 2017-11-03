@@ -5,6 +5,15 @@
 
 def generated_maven_jars():
 
+  native.maven_jar(
+      name = "org_mybatis_mybatis_guice",
+      artifact = "org.mybatis:mybatis-guice:3.10",
+  )
+
+  native.maven_jar(
+      name = "org_mybatis_mybatis",
+      artifact = "org.mybatis:mybatis:3.4.5",
+  )
 #
 #
 #  native.maven_jar(
@@ -467,6 +476,7 @@ def generated_maven_jars():
 
 
 def generated_java_libraries():
+
 
   native.java_library(
       name = "asm_asm",
@@ -1189,4 +1199,17 @@ def generated_java_libraries():
           ":io_grpc_grpc_context",
           ":io_opencensus_opencensus_api",
       ],
+  )
+
+
+  native.java_library(
+      name = "org_mybatis_mybatis",
+      visibility = ["//visibility:public"],
+      exports = ["@org_mybatis_mybatis//jar"],
+  )
+
+  native.java_library(
+      name = "org_mybatis_mybatis_guice",
+      visibility = ["//visibility:public"],
+      exports = ["@org_mybatis_mybatis_guice//jar"],
   )
