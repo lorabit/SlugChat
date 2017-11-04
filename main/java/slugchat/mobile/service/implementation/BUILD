@@ -10,6 +10,7 @@ java_library(
         "//main/java/slugchat/mobile/service/domain",
         "//main/java/slugchat/mobile/service/mapper",
         "//slugchat/protos:mobile_java_proto",
+        "@com_google_guava_guava//jar",
         "@com_google_inject_extensions_guice_servlet//jar",
         "@com_google_inject_guice//jar",
         "@joda_time_joda_time//jar",
