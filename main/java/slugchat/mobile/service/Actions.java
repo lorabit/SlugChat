@@ -5,7 +5,6 @@ import com.google.inject.Injector;
 import com.kidschat.service.mobile.*;
 import io.grpc.stub.StreamObserver;
 import main.java.slugchat.mobile.service.implementation.RegisterClient;
-import main.java.slugchat.mobile.service.producer.RegisterClientProviderModule;
 import org.mybatis.guice.MyBatisModule;
 
 import static com.google.inject.Guice.createInjector;
@@ -34,7 +33,7 @@ class Actions extends MobileGrpc.MobileImplBase {
 
     @Override
     public void registerClient(RegisterClientRequest registerClientRequest, StreamObserver<RegisterClientResponse> streamObserver) {
-        streamObserver.onNext(injector.getInstance(RegisterClientResponse.class));
+        streamObserver.onNext(registerClient.registerClient(registerClientRequest));
         streamObserver.onCompleted();
     }
 

@@ -16,7 +16,7 @@ public class RegisterClient {
     private MobileService mobileService;
 
 
-    RegisterClientResponse registerClient(RegisterClientRequest request){
+    public RegisterClientResponse registerClient(RegisterClientRequest request){
         Client client = new Client();
         client.setCreateTime(Instant.now().getMillis());
         client.setDeviceToken(request.getDeviceToken());

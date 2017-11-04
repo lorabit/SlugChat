@@ -9,7 +9,7 @@ public interface ClientMapper {
     Client getClient(@Param("clientId") int clientId);
 
     @Insert("INSERT INTO tbl_clients(deviceToken, createTime) values(#{deviceToken},#{createTime})")
-    @Options(useGeneratedKeys=true, keyProperty="id")
+    @Options(useGeneratedKeys=true, keyProperty="clientId")
 //    @SelectKey(keyProperty = "id",resultType = Integer.class, before = false, statement = "SELECT LAST_INSERT_ID();")
 //    Client createClient(@Param("deviceToken") String deviceToken, @Param("platform") int platform);
     int createClient(Client client);

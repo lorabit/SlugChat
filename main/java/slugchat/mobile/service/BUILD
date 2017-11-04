@@ -4,7 +4,6 @@ java_library(
     deps = [
         "//main/java/slugchat/mobile/service/implementation",
         "//main/java/slugchat/mobile/service/mapper",
-        "//main/java/slugchat/mobile/service/producer",
         "//slugchat/protos:mobile_java_proto",
         "@com_google_api_grpc_proto_google_common_protos//jar",
         "@com_google_code_findbugs_jsr305//jar",
