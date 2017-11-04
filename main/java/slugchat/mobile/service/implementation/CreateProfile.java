@@ -2,6 +2,7 @@ package main.java.slugchat.mobile.service.implementation;
 
 import com.google.inject.Inject;
 import com.kidschat.service.mobile.Profile;
+import org.joda.time.Instant;
 
 public class CreateProfile {
 
@@ -9,7 +10,10 @@ public class CreateProfile {
     private MobileService mobileService;
 
     public Profile createProfile(Profile profile){
-        return mobileService.createProfile(new main.java.slugchat.mobile.service.domain.Profile(profile)).toProto();
+        main.java.slugchat.mobile.service.domain.Profile profileWithTimestamp =
+                new main.java.slugchat.mobile.service.domain.Profile(profile);
+        profileWithTimestamp.setCreateTime(Instant.now().getMillis());
+        return mobileService.createProfile(profileWithTimestamp).toProto();
     }
 
 }
