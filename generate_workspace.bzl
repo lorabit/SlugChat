@@ -483,8 +483,20 @@ def generated_maven_jars():
       artifact = "mysql:mysql-connector-java:6.0.6",
   )
 
+  native.maven_jar(
+      name = "joda_time_joda_time",
+      artifact = "joda-time:joda-time:2.9.9",
+  )
+
 
 def generated_java_libraries():
+
+  native.java_library(
+      name = "joda_time_joda_time",
+      visibility = ["//visibility:public"],
+      exports = ["@joda_time_joda_time//jar"],
+  )
+
 
   native.java_library(
       name = "mysql_mysql_connector_java",

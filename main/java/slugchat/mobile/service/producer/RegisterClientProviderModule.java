@@ -1,22 +1,25 @@
-package main.java.slugchat.mobile.service.implementation;
+package main.java.slugchat.mobile.service.producer;
 
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
+import com.google.inject.Provides;
 import com.kidschat.service.mobile.RegisterClientRequest;
 import com.kidschat.service.mobile.RegisterClientResponse;
 import main.java.slugchat.mobile.service.domain.Client;
-import org.apache.ibatis.annotations.Insert;
+import main.java.slugchat.mobile.service.implementation.MobileService;
+import org.joda.time.DateTime;
 import org.joda.time.Instant;
 
-/**
- * Created by lorabit on 02/11/2017.
- */
-public class RegisterClient {
+public class RegisterClientProviderModule extends AbstractModule {
 
-    @Inject
-    private MobileService mobileService;
+    @Override
+    protected void configure() {
 
+    }
 
-    RegisterClientResponse registerClient(RegisterClientRequest request){
+    @Provides
+    RegisterClientResponse providesRegisterClientResponse(RegisterClientRequest request, MobileService mobileService){
         Client client = new Client();
         client.setCreateTime(Instant.now().getMillis());
         client.setDeviceToken(request.getDeviceToken());

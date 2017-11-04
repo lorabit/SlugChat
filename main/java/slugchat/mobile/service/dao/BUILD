@@ -7,6 +7,7 @@ java_library(
     srcs = glob(["*.java"]),
     deps = [
         "//main/java/slugchat/mobile/service/domain",
+        "//main/java/slugchat/mobile/service/mapper",
         "@com_google_inject_guice//jar",
         "@org_mybatis_mybatis//jar",
         "@org_mybatis_mybatis_guice//jar",

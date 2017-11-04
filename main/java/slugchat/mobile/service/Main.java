@@ -18,6 +18,8 @@ public class Main {
     private void start() throws IOException {
     /* The port on which the server should run */
         int port = 50051;
+
+
         server = ServerBuilder.forPort(port)
                 .addService(new Actions())
                 .build()

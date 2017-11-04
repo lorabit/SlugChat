@@ -1,12 +1,17 @@
 package main.java.slugchat.mobile.service.mapper;
 
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import main.java.slugchat.mobile.service.domain.Client;
 
 public interface ClientMapper {
 
-    @Select("SELECT * FROM tbl_client WHERE id = #{clientId}")
+    @Select("SELECT * FROM tbl_clients WHERE clientId = #{clientId}")
     Client getClient(@Param("clientId") int clientId);
+
+    @Insert("INSERT INTO tbl_clients(deviceToken, createTime) values(#{deviceToken},#{createTime})")
+    @Options(useGeneratedKeys=true, keyProperty="id")
+//    @SelectKey(keyProperty = "id",resultType = Integer.class, before = false, statement = "SELECT LAST_INSERT_ID();")
+//    Client createClient(@Param("deviceToken") String deviceToken, @Param("platform") int platform);
+    int createClient(Client client);
 
 }

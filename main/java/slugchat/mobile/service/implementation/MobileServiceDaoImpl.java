@@ -18,4 +18,9 @@ public class MobileServiceDaoImpl implements MobileService {
     public Client getClientByClientId(int clientId) {
         return this.clientDao.getClient(clientId);
     }
+
+    @Override
+    public Client createClient(Client client) {
+        return this.clientDao.createClient(client);
+    }
 }

@@ -1,34 +1,32 @@
 package main.java.slugchat.mobile.service.domain;
 
-import java.sql.Timestamp;
-
 public class Client {
 
-    private int id;
-    private String device_token;
-    private Double create_time;
+    private int clientId;
+    private String deviceToken;
+    private Long createTime;
 
-    public void setId(int id){
-        this.id = id;
+    public int getClientId() {
+        return clientId;
     }
 
-    public void setCreate_time(Double create_time) {
-        this.create_time = create_time;
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 
-    public void setDevice_token(String device_token) {
-        this.device_token = device_token;
+    public String getDeviceToken() {
+        return deviceToken;
     }
 
-    public int getId() {
-        return id;
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 
-    public Double getCreate_time() {
-        return create_time;
+    public Long getCreateTime() {
+        return createTime;
     }
 
-    public String getDevice_token() {
-        return device_token;
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
     }
 }

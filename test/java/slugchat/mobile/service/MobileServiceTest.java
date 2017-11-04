@@ -27,6 +27,7 @@ import static com.google.inject.name.Names.bindProperties;
 import static org.apache.ibatis.io.Resources.getResourceAsReader;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 @RunWith(JUnit4.class)
 public class MobileServiceTest {
@@ -83,7 +84,15 @@ public class MobileServiceTest {
     public void testFooService() {
         Client client = this.mobileService.getClientByClientId(1);
         assertNotNull(client);
-        assertEquals(1, client.getId());
-        assertEquals("test", client.getDevice_token());
+        assertEquals(1, client.getClientId());
+        assertEquals("test", client.getDeviceToken());
+
+        Client newClient = new Client();
+        newClient.setDeviceToken("d1");
+        newClient.setCreateTime(1234D);
+        newClient = mobileService.createClient(newClient);
+        assertNotNull(newClient.getClientId());
+        assertEquals(newClient.getDeviceToken(),"d1");
+
     }
 }

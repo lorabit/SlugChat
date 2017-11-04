@@ -17,4 +17,10 @@ public class MobileServiceMapperImpl implements MobileService {
     public Client getClientByClientId(int clientId) {
         return this.clientMapper.getClient(clientId);
     }
+
+    @Override
+    public Client createClient(Client client) {
+        this.clientMapper.createClient(client);
+        return client;
+    }
 }
