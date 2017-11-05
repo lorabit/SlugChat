@@ -31,7 +31,36 @@ service Mobile {
 
     // Rpc for listing profiles under given client
     rpc ListProfiles (ListProfilesRequest) returns (ListProfilesResponse) {}
+
+    // Rpc for interacting with user
+    rpc GetChatbotResponse (UserRequest) returns (ChatbotResponse){}
 }
+
+message UserRequest{
+
+    enum RequestType{
+        UNKNOWN = 0;
+        TEXT = 1;
+    }
+
+    RequestType request_type = 1;
+    int32 profile_id = 2;
+    string text = 3;
+}
+
+
+message ChatbotResponse{
+
+    enum ResponseType{
+        UNKNOWN = 0;
+        TEXT = 1;
+        AUDIO = 2;
+        IMAGE = 3;
+    }
+
+    string text = 1;
+}
+
 
 enum Platform{
     UNKNOWN = 0;
