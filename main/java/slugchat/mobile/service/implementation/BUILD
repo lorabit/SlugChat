@@ -16,5 +16,6 @@ java_library(
         "@joda_time_joda_time//jar",
         "@org_mybatis_mybatis//jar",
         "@org_mybatis_mybatis_guice//jar",
+        "@ai_api_libai//jar",
     ],
 )

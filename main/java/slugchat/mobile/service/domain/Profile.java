@@ -48,6 +48,10 @@ public class Profile {
         this.profileId = profileId;
     }
 
+    public Profile(){
+
+    }
+
     public Profile(com.kidschat.service.mobile.Profile proto){
         setClientId(proto.getClientId());
         setAvatar(proto.getAvatar());

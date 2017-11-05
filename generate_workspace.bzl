@@ -488,8 +488,23 @@ def generated_maven_jars():
       artifact = "joda-time:joda-time:2.9.9",
   )
 
+  native.maven_jar(
+      name = "ai_api_libai",
+      artifact = "ai.api:libai:1.6.12",
+  )
+
 
 def generated_java_libraries():
+
+  native.java_library(
+      name = "ai_api_libai",
+      visibility = ["//visibility:public"],
+      exports = ["@ai_api_libai//jar"],
+      runtime_deps = [
+          ":com_google_code_gson_gson",
+          ":org_slf4j_slf4j_api",
+      ],
+  )
 
   native.java_library(
       name = "joda_time_joda_time",
