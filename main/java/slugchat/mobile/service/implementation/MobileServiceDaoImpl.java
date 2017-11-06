@@ -17,7 +17,7 @@ public class MobileServiceDaoImpl implements MobileService {
     private ProfileDao profileDao;
 
     @Override
-    public Client getClientByClientId(int clientId) {
+    public Client getClientByClientId(Long clientId) {
         return this.clientDao.getClient(clientId);
     }
 
@@ -32,7 +32,7 @@ public class MobileServiceDaoImpl implements MobileService {
     }
 
     @Override
-    public ImmutableList<Profile> listProfileUnderClient(int clientId) {
+    public ImmutableList<Profile> listProfileUnderClient(Long clientId) {
         return profileDao.listProfileUnderClient(clientId);
     }
 }

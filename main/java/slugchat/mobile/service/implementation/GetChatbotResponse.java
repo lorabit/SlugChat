@@ -15,10 +15,10 @@ public class GetChatbotResponse {
     @Inject
     private AIDataService aiDataService;
 
-    public ChatbotResponse getChatbotResponse(UserRequest userRequest){
-
-        AIRequest request = new AIRequest();
-//        aiDataService.
-
-    }
+//    public ChatbotResponse getChatbotResponse(UserRequest userRequest){
+//
+//        AIRequest request = new AIRequest();
+////        aiDataService.
+//
+//    }
 }

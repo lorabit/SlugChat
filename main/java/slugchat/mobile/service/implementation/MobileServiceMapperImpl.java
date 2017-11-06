@@ -21,7 +21,7 @@ public class MobileServiceMapperImpl implements MobileService {
 //    }
 
     @Override
-    public Client getClientByClientId(int clientId) {
+    public Client getClientByClientId(Long clientId) {
         return this.clientMapper.getClient(clientId);
     }
 
@@ -38,7 +38,7 @@ public class MobileServiceMapperImpl implements MobileService {
     }
 
     @Override
-    public ImmutableList<Profile> listProfileUnderClient(int clientId) {
+    public ImmutableList<Profile> listProfileUnderClient(Long clientId) {
         return ImmutableList.copyOf(profileMapper.listProfilesUnderClient(clientId));
     }
 }

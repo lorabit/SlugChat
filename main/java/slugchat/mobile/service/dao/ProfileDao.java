@@ -5,7 +5,7 @@ import main.java.slugchat.mobile.service.domain.Profile;
 
 public interface ProfileDao {
 
-    ImmutableList<Profile> listProfileUnderClient(int clientId);
+    ImmutableList<Profile> listProfileUnderClient(Long clientId);
     Profile createProfile(Profile profile);
 
 }

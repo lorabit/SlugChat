@@ -15,7 +15,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public Client getClient(int clientId) {
+    public Client getClient(Long clientId) {
         return (Client) this.sqlSession.selectOne("main.java.slugchat.mobile.service.mapper.ClientMapper.getClient",clientId);
     }
 

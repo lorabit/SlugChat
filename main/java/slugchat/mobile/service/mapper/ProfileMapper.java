@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProfileMapper {
 
     @Select("SELECT * FROM tbl_profiles WHERE clientId=#{clientId}")
-    List<Profile> listProfilesUnderClient(@Param("clientId") int clientId);
+    List<Profile> listProfilesUnderClient(@Param("clientId") Long clientId);
 
     @Insert("INSERT INTO tbl_profiles(clientId, name, avatar, createTime) values(#{clientId},#{name},#{avatar},#{createTime})")
     @Options(useGeneratedKeys=true, keyProperty="profileId")

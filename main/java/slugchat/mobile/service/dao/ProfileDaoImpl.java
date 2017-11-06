@@ -22,7 +22,7 @@ public class ProfileDaoImpl implements ProfileDao{
     }
 
     @Override
-    public ImmutableList<Profile> listProfileUnderClient(int clientId) {
+    public ImmutableList<Profile> listProfileUnderClient(Long clientId) {
         return ImmutableList.copyOf(
                 sqlSession.selectList(
                         "main.java.slugchat.mobile.service.mapper.ProfileMapper.listProfilesUnderClient",clientId));

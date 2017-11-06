@@ -6,7 +6,7 @@ import main.java.slugchat.mobile.service.domain.Client;
 public interface ClientMapper {
 
     @Select("SELECT * FROM tbl_clients WHERE clientId = #{clientId}")
-    Client getClient(@Param("clientId") int clientId);
+    Client getClient(@Param("clientId") Long clientId);
 
     @Insert("INSERT INTO tbl_clients(deviceToken, createTime) values(#{deviceToken},#{createTime})")
     @Options(useGeneratedKeys=true, keyProperty="clientId")

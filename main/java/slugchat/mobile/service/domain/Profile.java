@@ -2,8 +2,8 @@ package main.java.slugchat.mobile.service.domain;
 
 public class Profile {
 
-    private int profileId;
-    private int clientId;
+    private Long profileId;
+    private Long clientId;
     private String name;
     private int avatar;
     private Long createTime;
@@ -16,7 +16,7 @@ public class Profile {
         return createTime;
     }
 
-    public int getProfileId() {
+    public Long getProfileId() {
         return profileId;
     }
 
@@ -24,7 +24,7 @@ public class Profile {
         return avatar;
     }
 
-    public int getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
@@ -36,7 +36,7 @@ public class Profile {
         this.avatar = avatar;
     }
 
-    public void setClientId(int clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 
@@ -44,7 +44,7 @@ public class Profile {
         this.createTime = createTime;
     }
 
-    public void setProfileId(int profileId) {
+    public void setProfileId(Long profileId) {
         this.profileId = profileId;
     }
 

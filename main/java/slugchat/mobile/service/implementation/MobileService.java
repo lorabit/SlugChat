@@ -6,10 +6,10 @@ import main.java.slugchat.mobile.service.domain.Profile;
 
 public interface MobileService {
 
-    Client getClientByClientId(int clientId);
+    Client getClientByClientId(Long clientId);
     Client createClient(Client client);
 
 
     Profile createProfile(Profile profile);
-    ImmutableList<Profile> listProfileUnderClient(int clientId);
+    ImmutableList<Profile> listProfileUnderClient(Long clientId);
 }

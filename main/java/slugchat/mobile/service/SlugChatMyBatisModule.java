@@ -34,7 +34,7 @@ public class SlugChatMyBatisModule extends MyBatisModule {
         myBatisProperties.setProperty("JDBC.schema", "slugchat");
         myBatisProperties.setProperty("JDBC.driver", "com.mysql.cj.jdbc.Driver");
         myBatisProperties.setProperty("JDBC.url", "jdbc:mysql://slugchat-test.cqpr0kxypucj.us-west-2.rds.amazonaws.com/slugchat?" +
-                "user=root&password=password");
+                "user=root&password=password&useUnicode=yes&characterEncoding=UTF-8");
 //        myBatisProperties.setProperty("JDBC.username", "root");
 //        myBatisProperties.setProperty("JDBC.password", "password");
         myBatisProperties.setProperty("JDBC.autoCommit", "false");

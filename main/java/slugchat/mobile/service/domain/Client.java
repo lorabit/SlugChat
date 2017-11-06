@@ -2,15 +2,15 @@ package main.java.slugchat.mobile.service.domain;
 
 public class Client {
 
-    private int clientId;
+    private Long clientId;
     private String deviceToken;
     private Long createTime;
 
-    public int getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(int clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 
