@@ -493,8 +493,34 @@ def generated_maven_jars():
       artifact = "ai.api:libai:1.6.12",
   )
 
+  native.maven_jar(
+      name = "log4j_log4j",
+      artifact = "log4j:log4j:1.2.17",
+  )
+
+
+  native.maven_jar(
+      name = "args4j_args4j",
+      artifact = "args4j:args4j:2.33",
+  )
+
 
 def generated_java_libraries():
+
+  native.java_library(
+      name = "args4j_args4j",
+      visibility = ["//visibility:public"],
+      exports = ["@args4j_args4j//jar"],
+  )
+
+
+  native.java_library(
+      name = "log4j_log4j",
+      visibility = ["//visibility:public"],
+      exports = ["@log4j_log4j//jar"],
+  )
+
+
 
   native.java_library(
       name = "ai_api_libai",

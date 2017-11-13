@@ -17,5 +17,7 @@ java_library(
         "@org_mybatis_mybatis//jar",
         "@org_mybatis_mybatis_guice//jar",
         "@ai_api_libai//jar",
+        "@log4j_log4j//jar",
+        "@org_slf4j_slf4j_api//jar"
     ],
 )

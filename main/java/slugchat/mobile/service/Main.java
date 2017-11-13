@@ -2,9 +2,10 @@ package main.java.slugchat.mobile.service;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-import io.grpc.stub.StreamObserver;
+import org.apache.log4j.PropertyConfigurator;
 
 import java.io.IOException;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 /**
@@ -51,11 +52,22 @@ public class Main {
         }
     }
 
+    private void configureLogging(){
+        Properties properties = new Properties();
+        properties.setProperty("log4j.rootLogger","DEBUG, FILE");
+        properties.setProperty("log4j.appender.FILE","org.apache.log4j.FileAppender");
+        properties.setProperty("log4j.appender.FILE.File","/tmp/slugchat.out");
+        properties.setProperty("log4j.appender.FILE.layout","org.apache.log4j.PatternLayout");
+        properties.setProperty("log4j.appender.FILE.layout.conversionPattern","%m%n");
+        PropertyConfigurator.configure(properties);
+    }
+
     /**
      * Main launches the server from the command line.
      */
     public static void main(String[] args) throws IOException, InterruptedException {
         final Main server = new Main();
+        server.configureLogging();
         server.start();
         server.blockUntilShutdown();
     }

@@ -4,9 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.kidschat.service.mobile.*;
 import io.grpc.stub.StreamObserver;
-import main.java.slugchat.mobile.service.implementation.CreateProfile;
-import main.java.slugchat.mobile.service.implementation.ListProfilesUnderClient;
-import main.java.slugchat.mobile.service.implementation.RegisterClient;
+import main.java.slugchat.mobile.service.implementation.*;
 import org.mybatis.guice.MyBatisModule;
 
 import static com.google.inject.Guice.createInjector;
@@ -27,11 +25,26 @@ class Actions extends MobileGrpc.MobileImplBase {
     @Inject
     ListProfilesUnderClient listProfilesUnderClient;
 
+    @Inject
+    GetChatbotResponse getChatbotResponse;
+
     Actions(){
         injector = createInjector(
-                new SlugChatMyBatisModule()
+                new SlugChatMyBatisModule(),
+                new DialogflowModule()
         );
         injector.injectMembers(this);
+    }
+
+    @Override
+    public void getChatbotResponse(UserRequest userRequest, StreamObserver<ChatbotResponse> streamObserver) {
+        try{
+            streamObserver.onNext(getChatbotResponse.getChatbotResponse(userRequest));
+        }
+        catch (Exception exception){
+            streamObserver.onError(exception);
+        }
+        streamObserver.onCompleted();
     }
 
     @Override
