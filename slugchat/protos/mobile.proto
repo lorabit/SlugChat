@@ -57,8 +57,16 @@ message ChatbotResponse{
         AUDIO = 2;
         IMAGE = 3;
     }
+    ResponseType response_type = 1;
 
-    string text = 1;
+    enum Emotion{
+        NORMAL = 0;
+        SAD = 1;
+        HAPPY = 2;
+    }
+    Emotion emotion = 2;
+
+    string text = 3;
 }
 
 

@@ -21,12 +21,14 @@ public class GetChatbotResponse {
     private AIDataService aiDataService;
 
     public ChatbotResponse getChatbotResponse(UserRequest userRequest) throws AIServiceException{
-        AIRequest request = new AIRequest();
+        AIRequest request = new AIRequest(userRequest.getText());
+        request.setSessionId(Long.toString(userRequest.getProfileId()));
         request.setQuery(userRequest.getText());
         logger.info(userRequest);
         AIResponse aiResponse = aiDataService.request(request);
         ChatbotResponse response = ChatbotResponse.newBuilder()
                 .setText(aiResponse.getResult().getFulfillment().getSpeech()).build();
+        logger.info(aiResponse);
         logger.info(response);
         return response;
     }

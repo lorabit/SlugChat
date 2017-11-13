@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import com.kidschat.service.mobile.*;
 import io.grpc.stub.StreamObserver;
 import main.java.slugchat.mobile.service.implementation.*;
+import org.apache.log4j.Logger;
 import org.mybatis.guice.MyBatisModule;
 
 import static com.google.inject.Guice.createInjector;
@@ -13,6 +14,10 @@ import static com.google.inject.Guice.createInjector;
  * Created by lorabit on 02/11/2017.
  */
 class Actions extends MobileGrpc.MobileImplBase {
+
+
+
+    static Logger logger = Logger.getLogger(Actions.class);
 
     Injector injector;
 
@@ -40,11 +45,12 @@ class Actions extends MobileGrpc.MobileImplBase {
     public void getChatbotResponse(UserRequest userRequest, StreamObserver<ChatbotResponse> streamObserver) {
         try{
             streamObserver.onNext(getChatbotResponse.getChatbotResponse(userRequest));
+            streamObserver.onCompleted();
         }
         catch (Exception exception){
+            logger.error(exception);
             streamObserver.onError(exception);
         }
-        streamObserver.onCompleted();
     }
 
     @Override

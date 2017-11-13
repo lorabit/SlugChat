@@ -498,21 +498,19 @@ def generated_maven_jars():
       artifact = "log4j:log4j:1.2.17",
   )
 
-
   native.maven_jar(
-      name = "args4j_args4j",
-      artifact = "args4j:args4j:2.33",
+      name = "com_beust_jcommander",
+      artifact = "com.beust:jcommander:1.72",
   )
 
 
 def generated_java_libraries():
 
   native.java_library(
-      name = "args4j_args4j",
+      name = "com_beust_jcommander",
       visibility = ["//visibility:public"],
-      exports = ["@args4j_args4j//jar"],
+      exports = ["@com_beust_jcommander//jar"],
   )
-
 
   native.java_library(
       name = "log4j_log4j",

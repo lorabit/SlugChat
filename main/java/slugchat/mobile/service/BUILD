@@ -20,8 +20,8 @@ java_library(
         "@org_mybatis_mybatis//jar",
         "@org_mybatis_mybatis_guice//jar",
         "@log4j_log4j//jar",
-        "@org_slf4j_slf4j_api//jar"
-        
+        "@org_slf4j_slf4j_api//jar",
+        "@com_beust_jcommander//jar",
     ],
 )
 
