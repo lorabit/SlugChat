@@ -39,17 +39,17 @@ public class DialogflowController {
     public DialogflowWebhookResponse webhook(@RequestBody Map<String, Object> request) throws IOException{
         DialogflowWebhookResponse response = new DialogflowWebhookResponse();
         response.setDisplayText(request.toString());
-        Map<String, Object> originalRequest = (Map<String, Object>)request.get("originalRequest");
-        Map<String, Object> data = (Map<String, Object>)originalRequest.get("data");
-        List<Object> inputs = (List<Object>)data.get("inputs");
-        if(inputs.size()>0){
-            Map<String, Object> input = (Map<String, Object>)inputs.get(0);
-            List<Object> rawInputs = (List<Object>)input.get("raw_inputs");
-            if(rawInputs.size()>0){
-                Map<String, Object> rawInput = (Map<String, Object>)rawInputs.get(0);
-                response.setSpeech("You said: "+rawInput.get("query").toString());
-            }
-        }
+//        Map<String, Object> originalRequest = (Map<String, Object>)request.get("originalRequest");
+//        Map<String, Object> data = (Map<String, Object>)originalRequest.get("data");
+//        List<Object> inputs = (List<Object>)data.get("inputs");
+//        if(inputs.size()>0){
+//            Map<String, Object> input = (Map<String, Object>)inputs.get(0);
+//            List<Object> rawInputs = (List<Object>)input.get("raw_inputs");
+//            if(rawInputs.size()>0){
+//                Map<String, Object> rawInput = (Map<String, Object>)rawInputs.get(0);
+//                response.setSpeech("You said: "+rawInput.get("query").toString());
+//            }
+//        }
 
 //        response.setSpeech(request.getOriginalRequest().getData().getInputs().get(0).getIntent());
 //        response.setSpeech(request.getOriginalRequest().getData().getInputs().get(0).getRaw_inputs().get(0).getQuery());
