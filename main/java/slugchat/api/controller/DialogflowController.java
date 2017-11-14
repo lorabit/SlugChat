@@ -38,7 +38,7 @@ public class DialogflowController {
 
     public DialogflowWebhookResponse webhook(@RequestBody Map<String, Object> request) throws IOException{
         DialogflowWebhookResponse response = new DialogflowWebhookResponse();
-        System.out.println(request.toString());
+        response.setDisplayText(request.toString());
         Map<String, Object> originalRequest = (Map<String, Object>)request.get("originalRequest");
         Map<String, Object> data = (Map<String, Object>)originalRequest.get("data");
         List<Object> inputs = (List<Object>)data.get("inputs");
