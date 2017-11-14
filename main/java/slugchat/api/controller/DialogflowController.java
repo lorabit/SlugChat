@@ -58,5 +58,5 @@ public class DialogflowController {
 ////        response.setSpeech(request.getOriginalRequest().getData().getInputs().get(0).getIntent());
 ////        response.setSpeech(request.getOriginalRequest().getData().getInputs().get(0).getRaw_inputs().get(0).getQuery());
 //        return response;
-    }
+//    }
 }
