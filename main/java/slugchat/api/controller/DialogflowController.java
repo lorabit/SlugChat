@@ -4,6 +4,8 @@ import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import main.java.slugchat.api.models.DialogflowWebhookRequest;
 import main.java.slugchat.api.models.DialogflowWebhookResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +24,7 @@ import java.util.Map;
 @RestController
 public class DialogflowController {
 
+    private static final Logger logger = LoggerFactory.getLogger(DialogflowController.class);
 
     @RequestMapping(
             value = "/dialogflow/webhook",
@@ -38,7 +41,7 @@ public class DialogflowController {
 
     public DialogflowWebhookResponse webhook(@RequestBody Map<String, Object> request) throws IOException{
         DialogflowWebhookResponse response = new DialogflowWebhookResponse();
-        response.setDisplayText(request.toString());
+        logger.info(request.toString());
 //        Map<String, Object> originalRequest = (Map<String, Object>)request.get("originalRequest");
 //        Map<String, Object> data = (Map<String, Object>)originalRequest.get("data");
 //        List<Object> inputs = (List<Object>)data.get("inputs");

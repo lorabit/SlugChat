@@ -82,14 +82,14 @@ public class MobileServiceTest {
 
     @Test
     public void testFooService() {
-        Client client = this.mobileService.getClientByClientId(1);
+        Client client = this.mobileService.getClientByClientId(1L);
         assertNotNull(client);
-        assertEquals(1, client.getClientId());
+        assertEquals(1l, (long)client.getClientId());
         assertEquals("test", client.getDeviceToken());
 
         Client newClient = new Client();
         newClient.setDeviceToken("d1");
-        newClient.setCreateTime(1234D);
+        newClient.setCreateTime(1234L);
         newClient = mobileService.createClient(newClient);
         assertNotNull(newClient.getClientId());
         assertEquals(newClient.getDeviceToken(),"d1");

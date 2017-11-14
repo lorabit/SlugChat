@@ -15,5 +15,6 @@ java_library(
             "//third_party:org_springframework_boot_spring_boot_autoconfigure",
             "@javax_servlet_javax_servlet_api//jar",
             "//main/java/slugchat/api/models",
+            "@org_slf4j_slf4j_api//jar",
       ],
 )
