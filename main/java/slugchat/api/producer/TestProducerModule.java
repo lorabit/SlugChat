@@ -1,8 +1,8 @@
-package main.java.kidschat.api.producer;
+package main.java.slugchat.api.producer;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import main.java.kidschat.api.annotations.TestAnnotation;
+import main.java.slugchat.api.annotations.TestAnnotation;
 
 /**
  * Created by lorabit on 2017/10/3.

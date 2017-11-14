@@ -1,4 +1,4 @@
-package main.java.kidschat.api.annotations;
+package main.java.slugchat.api.annotations;
 
 import com.google.inject.BindingAnnotation;
 

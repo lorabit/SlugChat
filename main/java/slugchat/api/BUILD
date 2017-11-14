@@ -4,7 +4,7 @@ java_library(
     name = "api",
     srcs = glob(["*.java"]),
     deps = [
-        "//main/java/kidschat/api/controller",
+        "//main/java/slugchat/api/controller",
         "//third_party:org_springframework_spring_core",
         "//third_party:org_springframework_spring_web",
         "//third_party:org_springframework_boot_spring_boot_autoconfigure",
@@ -36,7 +36,7 @@ java_binary(
 #        "@com_fasterxml_jackson_annotations//jar",
 #        "@org_springframework_boot_starter_security//jar",
         ],
-    main_class = "main.java.kidschat.api.Application",
+    main_class = "main.java.slugchat.api.Application",
     args = [
         "--server.port=9000",
 #        "--server.contextPath=bin/",

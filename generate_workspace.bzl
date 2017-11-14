@@ -503,8 +503,18 @@ def generated_maven_jars():
       artifact = "com.beust:jcommander:1.72",
   )
 
+  native.maven_jar(
+      name = "javax_servlet_javax_servlet_api",
+      artifact = "javax.servlet:javax.servlet-api:4.0.0",
+  )
 
 def generated_java_libraries():
+
+  native.java_library(
+      name = "javax_servlet_javax_servlet_api",
+      visibility = ["//visibility:public"],
+      exports = ["@javax_servlet_javax_servlet_api//jar"],
+  )
 
   native.java_library(
       name = "com_beust_jcommander",
@@ -1258,19 +1268,19 @@ def generated_java_libraries():
       ],
   )
 
-  native.java_library(
-      name = "io_grpc_grpc_core",
-      visibility = ["//visibility:public"],
-      exports = ["@io_grpc_grpc_core//jar"],
-      runtime_deps = [
-          ":com_google_code_findbugs_jsr305",
-          ":com_google_errorprone_error_prone_annotations",
-          ":com_google_guava_guava",
-          ":com_google_instrumentation_instrumentation_api",
-          ":io_grpc_grpc_context",
-          ":io_opencensus_opencensus_api",
-      ],
-  )
+#  native.java_library(
+#      name = "io_grpc_grpc_core",
+#      visibility = ["//visibility:public"],
+#      exports = ["@io_grpc_grpc_core//jar"],
+#      runtime_deps = [
+#          ":com_google_code_findbugs_jsr305",
+#          ":com_google_errorprone_error_prone_annotations",
+#          ":com_google_guava_guava",
+#          ":com_google_instrumentation_instrumentation_api",
+#          ":io_grpc_grpc_context",
+#          ":io_opencensus_opencensus_api",
+#      ],
+#  )
 
 
   native.java_library(

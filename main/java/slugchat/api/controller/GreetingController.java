@@ -1,9 +1,8 @@
-package main.java.kidschat.api.controller;
+package main.java.slugchat.api.controller;
 
 import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
 import com.google.inject.Inject;
-import main.java.kidschat.api.annotations.TestAnnotation;
+import main.java.slugchat.api.annotations.TestAnnotation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.ExecutionException;

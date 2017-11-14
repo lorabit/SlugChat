@@ -1,4 +1,4 @@
-package main.java.kidschat.api.controller;
+package main.java.slugchat.api.controller;
 
 /**
  * Created by lorabit on 2017/10/1.
