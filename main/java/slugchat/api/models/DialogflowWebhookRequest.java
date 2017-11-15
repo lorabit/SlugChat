@@ -17,23 +17,23 @@ public class DialogflowWebhookRequest {
 
     public class Result{
         private String resolvedQuery;
-        private Map<String, String> parameters;
+//        private Map<String, String> parameters;
 
         public String getResolvedQuery() {
             return resolvedQuery;
         }
 
-        public Map<String, String> getParameters() {
-            return parameters;
-        }
+//        public Map<String, String> getParameters() {
+//            return parameters;
+//        }
 
         public void setResolvedQuery(String resolvedQuery) {
             this.resolvedQuery = resolvedQuery;
         }
 
-        public void setParameters(Map<String, String> parameters) {
-            this.parameters = parameters;
-        }
+//        public void setParameters(Map<String, String> parameters) {
+//            this.parameters = parameters;
+//        }
     }
 
     public Result getResult() {
