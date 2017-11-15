@@ -1,5 +1,6 @@
 package main.java.slugchat.api.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import main.java.slugchat.api.models.DialogflowWebhookRequest;
@@ -33,7 +34,7 @@ public class DialogflowController {
     )
 
 
-    public DialogflowWebhookResponse webhook(@RequestBody DialogflowWebhookRequest request) throws IOException{
+    public DialogflowWebhookResponse webhook(@RequestBody DialogflowWebhookRequest request){
         DialogflowWebhookResponse response = new DialogflowWebhookResponse();
         response.setSpeech("You just said: "+request.getId());
         return response;
@@ -46,7 +47,9 @@ public class DialogflowController {
     public DialogflowWebhookResponse webhookRaw(HttpServletRequest request) throws IOException{
         DialogflowWebhookResponse response = new DialogflowWebhookResponse();
         String jsonString = CharStreams.toString(new InputStreamReader(request.getInputStream(), Charsets.UTF_8));
-        response.setSpeech(jsonString);
+        ObjectMapper mapper = new ObjectMapper();
+        DialogflowWebhookRequest obj = mapper.readValue(jsonString,DialogflowWebhookRequest.class);
+        response.setSpeech(obj.getId());
         logger.info(jsonString);
         Enumeration<String> headerNames = request.getHeaderNames();
         while(headerNames.hasMoreElements()){
@@ -61,7 +64,7 @@ public class DialogflowController {
             value = "/dialogflow/webhook/map",
             method = RequestMethod.POST
     )
-    public DialogflowWebhookResponse webhookMap(@RequestBody Map<String,Object> request) throws IOException{
+    public DialogflowWebhookResponse webhookMap(@RequestBody Map<String,Object> request){
         DialogflowWebhookResponse response = new DialogflowWebhookResponse();
         response.setSpeech("You just said");
         logger.info(request.toString());

@@ -16,5 +16,7 @@ java_library(
             "@javax_servlet_javax_servlet_api//jar",
             "//main/java/slugchat/api/models",
             "@org_slf4j_slf4j_api//jar",
+            "@com_fasterxml_jackson_core_jackson_core//jar",
+            "@com_fasterxml_jackson_core_jackson_databind//jar"
       ],
 )
