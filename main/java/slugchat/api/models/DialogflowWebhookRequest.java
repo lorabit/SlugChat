@@ -12,19 +12,8 @@ import java.util.Map;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DialogflowWebhookRequest{
-    private String id;
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-}
-
-/*
 public class DialogflowWebhookRequest {
     private String timestamp;
     private String sessionId;
@@ -33,23 +22,23 @@ public class DialogflowWebhookRequest {
 
     public class Result{
         private String resolvedQuery;
-//        private Map<String, String> parameters;
+        private Map<String, String> parameters;
 
         public String getResolvedQuery() {
             return resolvedQuery;
         }
 
-//        public Map<String, String> getParameters() {
-//            return parameters;
-//        }
+        public Map<String, String> getParameters() {
+            return parameters;
+        }
 
         public void setResolvedQuery(String resolvedQuery) {
             this.resolvedQuery = resolvedQuery;
         }
 
-//        public void setParameters(Map<String, String> parameters) {
-//            this.parameters = parameters;
-//        }
+        public void setParameters(Map<String, String> parameters) {
+            this.parameters = parameters;
+        }
     }
 
     public Result getResult() {
@@ -83,4 +72,4 @@ public class DialogflowWebhookRequest {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
-}*/
+}

@@ -49,7 +49,7 @@ public class DialogflowController {
         String jsonString = CharStreams.toString(new InputStreamReader(request.getInputStream(), Charsets.UTF_8));
         ObjectMapper mapper = new ObjectMapper();
         DialogflowWebhookRequest obj = mapper.readValue(jsonString,DialogflowWebhookRequest.class);
-        response.setSpeech(obj.getId());
+        response.setSpeech("you just said: " + obj.getResult().getResolvedQuery());
         logger.info(jsonString);
         Enumeration<String> headerNames = request.getHeaderNames();
         while(headerNames.hasMoreElements()){
