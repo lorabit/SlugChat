@@ -38,7 +38,7 @@ java_binary(
         ],
     main_class = "main.java.slugchat.api.Application",
     args = [
-        "--server.port=9000",
+        "--server.port=8080",
 #        "--server.contextPath=bin/",
 #        "--debug",
         ],

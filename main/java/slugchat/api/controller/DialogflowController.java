@@ -49,4 +49,16 @@ public class DialogflowController {
         logger.info(jsonString);
         return response;
     }
+
+
+    @RequestMapping(
+            value = "/dialogflow/webhook/map",
+            method = RequestMethod.POST
+    )
+    public DialogflowWebhookResponse webhookMap(@RequestBody Map<String,Object> request) throws IOException{
+        DialogflowWebhookResponse response = new DialogflowWebhookResponse();
+        response.setSpeech("You just said: "+request.get("id").toString());
+        return response;
+    }
+
 }
