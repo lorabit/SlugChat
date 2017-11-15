@@ -63,7 +63,8 @@ public class DialogflowController {
     )
     public DialogflowWebhookResponse webhookMap(@RequestBody Map<String,Object> request) throws IOException{
         DialogflowWebhookResponse response = new DialogflowWebhookResponse();
-        response.setSpeech("You just said: "+request.get("id").toString());
+        response.setSpeech("You just said");
+        logger.info(request.toString());
         return response;
     }
 
