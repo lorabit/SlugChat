@@ -8,7 +8,19 @@ import java.util.Map;
  * Created by lorabit on 13/11/2017.
  */
 
+public class DialogflowWebhookRequest{
+    private String id;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+}
+
+/*
 public class DialogflowWebhookRequest {
     private String timestamp;
     private String sessionId;
@@ -67,4 +79,4 @@ public class DialogflowWebhookRequest {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
-}
+}*/

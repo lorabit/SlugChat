@@ -42,7 +42,7 @@ public class DialogflowController {
 
     public DialogflowWebhookResponse webhook(@RequestBody DialogflowWebhookRequest request) throws IOException{
         DialogflowWebhookResponse response = new DialogflowWebhookResponse();
-        response.setSpeech("You just said: "+request.getResult().getResolvedQuery());
+        response.setSpeech("You just said: "+request.getId());
         return response;
     }
 }
