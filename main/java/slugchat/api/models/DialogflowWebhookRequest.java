@@ -12,14 +12,14 @@ import java.util.Map;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-
-
 public class DialogflowWebhookRequest {
     private String timestamp;
     private String sessionId;
     private String id;
     private Result result;
 
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public class Result{
         private String resolvedQuery;
         private Map<String, String> parameters;
