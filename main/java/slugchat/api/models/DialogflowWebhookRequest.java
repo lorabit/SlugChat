@@ -1,5 +1,7 @@
 package main.java.slugchat.api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +10,8 @@ import java.util.Map;
  * Created by lorabit on 13/11/2017.
  */
 
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DialogflowWebhookRequest{
     private String id;
 
