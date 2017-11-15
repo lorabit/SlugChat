@@ -30,19 +30,23 @@ public class DialogflowController {
             value = "/dialogflow/webhook",
             method = RequestMethod.POST
     )
-//    public DialogflowWebhookResponse webhook(HttpServletRequest request) throws IOException{
-//        DialogflowWebhookResponse response = new DialogflowWebhookResponse();
-//        String jsonString = CharStreams.toString(new InputStreamReader(request.getInputStream(), Charsets.UTF_8));
-//        response.setSpeech(jsonString);
-//        logger.info(jsonString);
-//        System.out.println(jsonString);
-//
-//        return response;
-//    }
+
 
     public DialogflowWebhookResponse webhook(@RequestBody DialogflowWebhookRequest request) throws IOException{
         DialogflowWebhookResponse response = new DialogflowWebhookResponse();
         response.setSpeech("You just said: "+request.getId());
+        return response;
+    }
+
+    @RequestMapping(
+            value = "/dialogflow/webhook/raw",
+            method = RequestMethod.POST
+    )
+    public DialogflowWebhookResponse webhookRaw(HttpServletRequest request) throws IOException{
+        DialogflowWebhookResponse response = new DialogflowWebhookResponse();
+        String jsonString = CharStreams.toString(new InputStreamReader(request.getInputStream(), Charsets.UTF_8));
+        response.setSpeech(jsonString);
+        logger.info(jsonString);
         return response;
     }
 }
