@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +48,11 @@ public class DialogflowController {
         String jsonString = CharStreams.toString(new InputStreamReader(request.getInputStream(), Charsets.UTF_8));
         response.setSpeech(jsonString);
         logger.info(jsonString);
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while(headerNames.hasMoreElements()){
+            String headerName = headerNames.nextElement();
+            logger.info(headerName+":"+request.getHeader(headerName));
+        }
         return response;
     }
 
