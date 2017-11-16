@@ -3,6 +3,7 @@ mkdir ~/slugchat
 kill `cat ~/slugchat/mobile.pid`
 kill `cat ~/slugchat/api.pid`
 
+git pull origin release
 
 bazel build main/java/slugchat/mobile/service:bin
 bazel-bin/main/java/slugchat/mobile/service/bin \
