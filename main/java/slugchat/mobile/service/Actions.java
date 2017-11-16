@@ -1,5 +1,6 @@
 package main.java.slugchat.mobile.service;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.kidschat.service.mobile.*;
@@ -36,9 +37,10 @@ class Actions extends MobileGrpc.MobileImplBase {
     @Inject
     CreateLog createLog;
 
-    Actions(){
+
+    Actions(String dbUrl){
         injector = createInjector(
-                new SlugChatMyBatisModule(),
+                new SlugChatMyBatisModule(dbUrl),
                 new DialogflowModule()
         );
         injector.injectMembers(this);

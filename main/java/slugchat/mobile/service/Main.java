@@ -21,6 +21,9 @@ public class Main {
     @Parameter(names = {"--log", "--l"}, required = true)
     private String log;
 
+    @Parameter(names = {"--db.url", "--db"}, required = true)
+    private String dbUrl;
+
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     private Server server;
@@ -28,7 +31,7 @@ public class Main {
     private void start() throws IOException {
 
         server = ServerBuilder.forPort(port)
-                .addService(new Actions())
+                .addService(new Actions(dbUrl))
                 .build()
                 .start();
         logger.info("Server started, listening on " + port);
