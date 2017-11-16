@@ -10,11 +10,15 @@ public class DialogflowModule extends AbstractModule {
 
     private AIConfiguration aiConfiguration;
 
-    @Override
-    protected void configure() {
-        aiConfiguration = new AIConfiguration("360f730cc1034b19864a1cae700ff632");
+
+    public DialogflowModule(String apiKey){
+        aiConfiguration = new AIConfiguration(apiKey);
     }
 
+    @Override
+    protected void configure() {
+
+    }
 
     @Provides
     @Singleton

@@ -38,10 +38,10 @@ class Actions extends MobileGrpc.MobileImplBase {
     CreateLog createLog;
 
 
-    Actions(String dbUrl){
+    Actions(String dbUrl, String dialogflowApiKey){
         injector = createInjector(
                 new SlugChatMyBatisModule(dbUrl),
-                new DialogflowModule()
+                new DialogflowModule(dialogflowApiKey)
         );
         injector.injectMembers(this);
     }

@@ -24,6 +24,9 @@ public class Main {
     @Parameter(names = {"--db.url", "--db"}, required = true)
     private String dbUrl;
 
+    @Parameter(names = {"--dialogflow.apikey"}, required = true)
+    private String dialogflowApiKey;
+
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     private Server server;
@@ -31,7 +34,7 @@ public class Main {
     private void start() throws IOException {
 
         server = ServerBuilder.forPort(port)
-                .addService(new Actions(dbUrl))
+                .addService(new Actions(dbUrl, dialogflowApiKey))
                 .build()
                 .start();
         logger.info("Server started, listening on " + port);
