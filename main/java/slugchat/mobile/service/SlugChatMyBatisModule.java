@@ -3,6 +3,7 @@ package main.java.slugchat.mobile.service;
 import main.java.slugchat.mobile.service.implementation.MobileService;
 import main.java.slugchat.mobile.service.implementation.MobileServiceMapperImpl;
 import main.java.slugchat.mobile.service.mapper.ClientMapper;
+import main.java.slugchat.mobile.service.mapper.LogMapper;
 import main.java.slugchat.mobile.service.mapper.ProfileMapper;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.guice.MyBatisModule;
@@ -26,6 +27,7 @@ public class SlugChatMyBatisModule extends MyBatisModule {
     protected void addMapperClasses(){
         addMapperClass(ClientMapper.class);
         addMapperClass(ProfileMapper.class);
+        addMapperClass(LogMapper.class);
     }
 
     protected static Properties createTestProperties() {

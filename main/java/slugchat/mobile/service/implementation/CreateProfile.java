@@ -10,7 +10,6 @@ public class CreateProfile {
     private MobileService mobileService;
 
     public Profile createProfile(Profile profile){
-        System.out.println(profile.getName());
         main.java.slugchat.mobile.service.domain.Profile profileWithTimestamp =
                 new main.java.slugchat.mobile.service.domain.Profile(profile);
         profileWithTimestamp.setCreateTime(Instant.now().getMillis());

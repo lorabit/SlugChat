@@ -33,6 +33,9 @@ class Actions extends MobileGrpc.MobileImplBase {
     @Inject
     GetChatbotResponse getChatbotResponse;
 
+    @Inject
+    CreateLog createLog;
+
     Actions(){
         injector = createInjector(
                 new SlugChatMyBatisModule(),
@@ -69,5 +72,11 @@ class Actions extends MobileGrpc.MobileImplBase {
     public void listProfiles(ListProfilesRequest listProfilesRequest, StreamObserver<ListProfilesResponse> streamObserver) {
         streamObserver.onNext(listProfilesUnderClient.listProfilesUnderClient(listProfilesRequest));
         streamObserver.onCompleted();
+    }
+
+    @Override
+    public void createLog(Log request, StreamObserver<Log> responseObserver) {
+        responseObserver.onNext(createLog.createLog(request));
+        responseObserver.onCompleted();
     }
 }

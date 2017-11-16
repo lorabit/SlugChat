@@ -3,8 +3,10 @@ package main.java.slugchat.mobile.service.implementation;
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
 import main.java.slugchat.mobile.service.domain.Client;
+import main.java.slugchat.mobile.service.domain.Log;
 import main.java.slugchat.mobile.service.domain.Profile;
 import main.java.slugchat.mobile.service.mapper.ClientMapper;
+import main.java.slugchat.mobile.service.mapper.LogMapper;
 import main.java.slugchat.mobile.service.mapper.ProfileMapper;
 
 public class MobileServiceMapperImpl implements MobileService {
@@ -15,10 +17,8 @@ public class MobileServiceMapperImpl implements MobileService {
     @Inject
     private ProfileMapper profileMapper;
 
-//    @Inject
-//    public void setClientMapper(ClientMapper clientMapper) {
-//        this.clientMapper = clientMapper;
-//    }
+    @Inject
+    private LogMapper logMapper;
 
     @Override
     public Client getClientByClientId(Long clientId) {
@@ -40,5 +40,11 @@ public class MobileServiceMapperImpl implements MobileService {
     @Override
     public ImmutableList<Profile> listProfileUnderClient(Long clientId) {
         return ImmutableList.copyOf(profileMapper.listProfilesUnderClient(clientId));
+    }
+
+    @Override
+    public Log createLog(Log log) {
+        this.logMapper.createLog(log);
+        return log;
     }
 }
