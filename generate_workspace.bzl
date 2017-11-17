@@ -115,11 +115,11 @@ def generated_maven_jars():
 
 
   # org.springframework.boot:spring-boot-starter-test:jar:1.2.3.RELEASE
-  native.maven_jar(
-      name = "org_mockito_mockito_core",
-      artifact = "org.mockito:mockito-core:1.10.19",
-      sha1 = "e8546f5bef4e061d8dd73895b4e8f40e3fe6effe",
-  )
+#  native.maven_jar(
+#      name = "org_mockito_mockito_core",
+#      artifact = "org.mockito:mockito-core:1.10.19",
+#      sha1 = "e8546f5bef4e061d8dd73895b4e8f40e3fe6effe",
+#  )
 
 
   # org.springframework:spring-web:jar:4.1.6.RELEASE got requested version
@@ -508,7 +508,74 @@ def generated_maven_jars():
       artifact = "javax.servlet:javax.servlet-api:4.0.0",
   )
 
+  # org.mockito:mockito-core:jar:2.12.0
+  native.maven_jar(
+      name = "net_bytebuddy_byte_buddy_agent",
+      artifact = "net.bytebuddy:byte-buddy-agent:1.7.9",
+      sha1 = "a6c65f9da7f467ee1f02ff2841ffd3155aee2fc9",
+  )
+
+
+  native.maven_jar(
+      name = "org_mockito_mockito_core",
+      artifact = "org.mockito:mockito-core:2.12.0",
+  )
+
+
+  # org.mockito:mockito-core:jar:2.12.0
+  native.maven_jar(
+      name = "net_bytebuddy_byte_buddy",
+      artifact = "net.bytebuddy:byte-buddy:1.7.9",
+      sha1 = "51218a01a882c04d0aba8c028179cce488bbcb58",
+  )
+
+  native.maven_jar(
+      name = "com_google_inject_extensions_guice_testlib",
+      artifact = "com.google.inject.extensions:guice-testlib:4.1.0",
+  )
+
+
+
+
 def generated_java_libraries():
+
+  native.java_library(
+      name = "com_google_inject_extensions_guice_testlib",
+      visibility = ["//visibility:public"],
+      exports = ["@com_google_inject_extensions_guice_testlib//jar"],
+      runtime_deps = [
+          ":aopalliance_aopalliance",
+          ":com_google_guava_guava",
+          ":com_google_inject_guice",
+          ":javax_inject_javax_inject",
+      ],
+  )
+
+  native.java_library(
+      name = "net_bytebuddy_byte_buddy_agent",
+      visibility = ["//visibility:public"],
+      exports = ["@net_bytebuddy_byte_buddy_agent//jar"],
+  )
+
+
+  native.java_library(
+      name = "org_mockito_mockito_core",
+      visibility = ["//visibility:public"],
+      exports = ["@org_mockito_mockito_core//jar"],
+      runtime_deps = [
+          ":net_bytebuddy_byte_buddy",
+          ":net_bytebuddy_byte_buddy_agent",
+          ":org_objenesis_objenesis",
+      ],
+  )
+
+
+  native.java_library(
+      name = "net_bytebuddy_byte_buddy",
+      visibility = ["//visibility:public"],
+      exports = ["@net_bytebuddy_byte_buddy//jar"],
+  )
+
 
   native.java_library(
       name = "javax_servlet_javax_servlet_api",
@@ -636,15 +703,15 @@ def generated_java_libraries():
   )
 
 
-  native.java_library(
-      name = "org_mockito_mockito_core",
-      visibility = ["//visibility:public"],
-      exports = ["@org_mockito_mockito_core//jar"],
-      runtime_deps = [
-          ":org_hamcrest_hamcrest_core",
-          ":org_objenesis_objenesis",
-      ],
-  )
+#  native.java_library(
+#      name = "org_mockito_mockito_core",
+#      visibility = ["//visibility:public"],
+#      exports = ["@org_mockito_mockito_core//jar"],
+#      runtime_deps = [
+#          ":org_hamcrest_hamcrest_core",
+#          ":org_objenesis_objenesis",
+#      ],
+#  )
 
 
   native.java_library(
