@@ -2,12 +2,9 @@ package test.java.slugchat.mobile.service;
 
 import com.google.inject.Injector;
 import main.java.slugchat.mobile.service.domain.Client;
-import main.java.slugchat.mobile.service.implementation.MobileService;
-import main.java.slugchat.mobile.service.implementation.MobileServiceMapperImpl;
+import main.java.slugchat.mobile.service.implementation.models.MobileService;
+import main.java.slugchat.mobile.service.implementation.models.MobileServiceMapperImpl;
 import main.java.slugchat.mobile.service.mapper.ClientMapper;
-import org.apache.ibatis.jdbc.ScriptRunner;
-import org.apache.ibatis.mapping.Environment;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,9 +12,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mybatis.guice.MyBatisModule;
 import org.mybatis.guice.datasource.builtin.PooledDataSourceProvider;
-import org.mybatis.guice.datasource.helper.JdbcHelper;
 
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Properties;

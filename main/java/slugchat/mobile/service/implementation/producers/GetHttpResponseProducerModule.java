@@ -14,6 +14,7 @@ import com.google.inject.Provides;
 import main.java.slugchat.mobile.service.implementation.annotations.HttpGetResponse;
 import main.java.slugchat.mobile.service.implementation.annotations.HttpRequestParameters;
 import main.java.slugchat.mobile.service.implementation.annotations.HttpRequestUrl;
+import main.java.slugchat.mobile.service.implementation.annotations.MobileExecutorService;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,17 +27,14 @@ import java.util.concurrent.Executors;
 public class GetHttpResponseProducerModule extends AbstractModule {
 
 
-    @Inject
-    ListeningExecutorService service = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(10));;
-
     @Override
     protected void configure() {
-
     }
 
     @Provides
     @HttpGetResponse
     ListenableFuture<String> getHttpResponse(
+            @MobileExecutorService ListeningExecutorService service,
             @HttpRequestUrl String url,
             @HttpRequestParameters Provider<ImmutableMap<String, String>> params
     ){

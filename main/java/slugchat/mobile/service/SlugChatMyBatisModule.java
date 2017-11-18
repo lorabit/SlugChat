@@ -1,9 +1,7 @@
 package main.java.slugchat.mobile.service;
 
-import com.google.inject.BindingAnnotation;
-import com.google.inject.Inject;
-import main.java.slugchat.mobile.service.implementation.MobileService;
-import main.java.slugchat.mobile.service.implementation.MobileServiceMapperImpl;
+import main.java.slugchat.mobile.service.implementation.models.MobileService;
+import main.java.slugchat.mobile.service.implementation.models.MobileServiceMapperImpl;
 import main.java.slugchat.mobile.service.mapper.ClientMapper;
 import main.java.slugchat.mobile.service.mapper.LogMapper;
 import main.java.slugchat.mobile.service.mapper.ProfileMapper;
@@ -11,8 +9,6 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.guice.MyBatisModule;
 import org.mybatis.guice.datasource.builtin.PooledDataSourceProvider;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.Properties;
 
 import static com.google.inject.name.Names.bindProperties;

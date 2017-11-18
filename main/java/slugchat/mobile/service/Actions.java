@@ -1,13 +1,13 @@
 package main.java.slugchat.mobile.service;
 
-import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.kidschat.service.mobile.*;
 import io.grpc.stub.StreamObserver;
 import main.java.slugchat.mobile.service.implementation.*;
+import main.java.slugchat.mobile.service.implementation.models.MobileService;
+import main.java.slugchat.mobile.service.implementation.producers.ChatbotResponseProducerModule;
 import org.apache.log4j.Logger;
-import org.mybatis.guice.MyBatisModule;
 
 import static com.google.inject.Guice.createInjector;
 
@@ -32,24 +32,26 @@ class Actions extends MobileGrpc.MobileImplBase {
     ListProfilesUnderClient listProfilesUnderClient;
 
     @Inject
-    GetChatbotResponse getChatbotResponse;
-
-    @Inject
     CreateLog createLog;
 
+    @Inject
+    private MobileService mobileService;
 
-    Actions(String dbUrl, String dialogflowApiKey){
+
+    private String dialogflowApiKey;
+
+    Actions(String dbUrl, String _dialogflowApiKey){
         injector = createInjector(
-                new SlugChatMyBatisModule(dbUrl),
-                new DialogflowModule(dialogflowApiKey)
+                new SlugChatMyBatisModule(dbUrl)
         );
         injector.injectMembers(this);
+        dialogflowApiKey = _dialogflowApiKey;
     }
 
     @Override
     public void getChatbotResponse(UserRequest userRequest, StreamObserver<ChatbotResponse> streamObserver) {
         try{
-            streamObserver.onNext(getChatbotResponse.getChatbotResponse(userRequest));
+            streamObserver.onNext(new GetChatbotResponse(mobileService, dialogflowApiKey).getChatbotResponse(userRequest));
             streamObserver.onCompleted();
         }
         catch (Exception exception){

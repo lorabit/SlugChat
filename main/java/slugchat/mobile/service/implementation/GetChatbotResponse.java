@@ -1,13 +1,15 @@
 package main.java.slugchat.mobile.service.implementation;
 
-import ai.api.AIDataService;
-import ai.api.AIServiceException;
-import ai.api.model.AIRequest;
-import ai.api.model.AIResponse;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.kidschat.service.mobile.ChatbotResponse;
 import com.kidschat.service.mobile.UserRequest;
 import main.java.slugchat.mobile.service.domain.Log;
+import main.java.slugchat.mobile.service.implementation.models.MobileService;
+import main.java.slugchat.mobile.service.implementation.producers.ChatbotResponseProducerModule;
+import main.java.slugchat.mobile.service.implementation.producers.ExecutorServiceModule;
 import org.apache.log4j.Logger;
 import org.joda.time.Instant;
 
@@ -19,37 +21,46 @@ public class GetChatbotResponse {
 
     static Logger logger = Logger.getLogger(GetChatbotResponse.class);
 
-    @Inject
-    private AIDataService aiDataService;
+    private main.java.slugchat.mobile.service.implementation.models.MobileService mobileService;
 
     @Inject
-    private MobileService mobileService;
+    Provider<ChatbotResponse> chatbotResponseProvider;
 
-    public ChatbotResponse getChatbotResponse(UserRequest userRequest) throws AIServiceException{
+    private UserRequest userRequest;
+    private Provider<UserRequest> userRequestProvider;
 
+    public GetChatbotResponse(MobileService mobileService, String dialogflowApikey){
+        this.mobileService = mobileService;
+        Guice.createInjector(
+                new AbstractModule() {
+                    @Override
+                    protected void configure() {
+                        bind(UserRequest.class).toProvider(userRequestProvider);
+                    }
+                },
+                new ExecutorServiceModule(),
+                new DialogflowModule(dialogflowApikey),
+                new ChatbotResponseProducerModule()
+        ).injectMembers(this);
+    }
+
+    public ChatbotResponse getChatbotResponse(UserRequest request){
         Log requestLog = new Log();
         requestLog.setProfileId(userRequest.getProfileId());
         requestLog.setCreateTime(Instant.now().getMillis());
         requestLog.setLogType(com.kidschat.service.mobile.Log.LogType.SPEECH_REQUEST_VALUE);
         requestLog.setContent(userRequest.getText());
         mobileService.createLog(requestLog);
-
         logger.info(userRequest);
-                AIRequest request = new AIRequest(userRequest.getText());
-        request.setSessionId(Long.toString(userRequest.getProfileId()));
-        request.setQuery(userRequest.getText());
-        AIResponse aiResponse = aiDataService.request(request);
-        ChatbotResponse response = ChatbotResponse.newBuilder()
-                .setText(aiResponse.getResult().getFulfillment().getSpeech()).build();
-        logger.info(aiResponse);
+        userRequest = request;
+        ChatbotResponse response = chatbotResponseProvider.get();
+        String result = response.getText();
         logger.info(response);
-
-
         Log responseLog = new Log();
         responseLog.setProfileId(userRequest.getProfileId());
         responseLog.setCreateTime(Instant.now().getMillis());
         responseLog.setLogType(com.kidschat.service.mobile.Log.LogType.SPEECH_RESPONSE_VALUE);
-        responseLog.setContent(aiResponse.toString());
+        responseLog.setContent(result);
         mobileService.createLog(responseLog);
 
         return response;

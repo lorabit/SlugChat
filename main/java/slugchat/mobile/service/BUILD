@@ -3,6 +3,8 @@ java_library(
     srcs = glob(["*.java"]),
     deps = [
         "//main/java/slugchat/mobile/service/implementation",
+        "//main/java/slugchat/mobile/service/implementation/models",
+        "//main/java/slugchat/mobile/service/implementation/producers",
         "//main/java/slugchat/mobile/service/mapper",
         "//slugchat/protos:mobile_java_proto",
         "@com_google_api_grpc_proto_google_common_protos//jar",
@@ -31,5 +33,12 @@ java_binary(
     runtime_deps = [
         ":service",
         "@aopalliance_aopalliance//jar",
+    ],
+    args = [
+        "--port", "50051",
+        "--log /tmp/slugchat.log",
+        "--db.url", 
+        "jdbc:mysql://slugchat-test.cqpr0kxypucj.us-west-2.rds.amazonaws.com/slugchat?user=root&password=password&useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true",
+        "--dialogflow.apikey 360f730cc1034b19864a1cae700ff632", 
     ],
 )

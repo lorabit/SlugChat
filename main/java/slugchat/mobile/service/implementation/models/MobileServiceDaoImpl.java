@@ -1,4 +1,4 @@
-package main.java.slugchat.mobile.service.implementation;
+package main.java.slugchat.mobile.service.implementation.models;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;

@@ -2,6 +2,7 @@ package main.java.slugchat.mobile.service.implementation;
 
 import com.google.inject.Inject;
 import com.kidschat.service.mobile.Profile;
+import main.java.slugchat.mobile.service.implementation.models.MobileService;
 import org.joda.time.Instant;
 
 public class CreateProfile {

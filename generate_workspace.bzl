@@ -534,10 +534,21 @@ def generated_maven_jars():
       artifact = "com.google.inject.extensions:guice-testlib:4.1.0",
   )
 
+  native.maven_jar(
+      name = "org_jsoup_jsoup",
+      artifact = "org.jsoup:jsoup:1.11.1",
+  )
 
 
 
 def generated_java_libraries():
+
+
+  native.java_library(
+      name = "org_jsoup_jsoup",
+      visibility = ["//visibility:public"],
+      exports = ["@org_jsoup_jsoup//jar"],
+  )
 
   native.java_library(
       name = "com_google_inject_extensions_guice_testlib",

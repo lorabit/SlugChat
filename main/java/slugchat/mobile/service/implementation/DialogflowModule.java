@@ -17,14 +17,7 @@ public class DialogflowModule extends AbstractModule {
 
     @Override
     protected void configure() {
-
+        bind(AIDataService.class).toInstance(new AIDataService(aiConfiguration));
     }
-
-    @Provides
-    @Singleton
-    AIDataService providesAIDataService(){
-        return new AIDataService(aiConfiguration);
-    }
-
 
 }

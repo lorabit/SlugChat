@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.kidschat.service.mobile.ListProfilesRequest;
 import com.kidschat.service.mobile.ListProfilesResponse;
 import main.java.slugchat.mobile.service.domain.Profile;
+import main.java.slugchat.mobile.service.implementation.models.MobileService;
 
 public class ListProfilesUnderClient {
 
