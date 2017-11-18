@@ -1,5 +1,6 @@
 package main.java.slugchat.mobile.service.implementation;
 
+import com.google.common.util.concurrent.ListenableFuture;
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -24,10 +25,15 @@ public class GetChatbotResponse {
     private main.java.slugchat.mobile.service.implementation.models.MobileService mobileService;
 
     @Inject
-    Provider<ChatbotResponse> chatbotResponseProvider;
+    Provider<ListenableFuture<ChatbotResponse>> chatbotResponseProvider;
 
     private UserRequest userRequest;
-    private Provider<UserRequest> userRequestProvider;
+    private Provider<UserRequest> userRequestProvider = new Provider<UserRequest>() {
+        @Override
+        public UserRequest get() {
+            return userRequest;
+        }
+    };
 
     public GetChatbotResponse(MobileService mobileService, String dialogflowApikey){
         this.mobileService = mobileService;
@@ -44,18 +50,19 @@ public class GetChatbotResponse {
         ).injectMembers(this);
     }
 
-    public ChatbotResponse getChatbotResponse(UserRequest request){
+    public ChatbotResponse getChatbotResponse(UserRequest request) throws Exception{
+
+        userRequest = request;
         Log requestLog = new Log();
         requestLog.setProfileId(userRequest.getProfileId());
         requestLog.setCreateTime(Instant.now().getMillis());
         requestLog.setLogType(com.kidschat.service.mobile.Log.LogType.SPEECH_REQUEST_VALUE);
         requestLog.setContent(userRequest.getText());
         mobileService.createLog(requestLog);
-        logger.info(userRequest);
-        userRequest = request;
-        ChatbotResponse response = chatbotResponseProvider.get();
+//        logger.info(userRequest);
+        ChatbotResponse response = chatbotResponseProvider.get().get();
         String result = response.getText();
-        logger.info(response);
+//        logger.info(response);
         Log responseLog = new Log();
         responseLog.setProfileId(userRequest.getProfileId());
         responseLog.setCreateTime(Instant.now().getMillis());

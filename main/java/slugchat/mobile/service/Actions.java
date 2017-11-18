@@ -55,6 +55,7 @@ class Actions extends MobileGrpc.MobileImplBase {
             streamObserver.onCompleted();
         }
         catch (Exception exception){
+            exception.printStackTrace();
             logger.error(exception);
             streamObserver.onError(exception);
         }
