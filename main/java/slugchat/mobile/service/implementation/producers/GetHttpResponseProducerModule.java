@@ -42,7 +42,6 @@ public class GetHttpResponseProducerModule extends AbstractModule {
             @Override
             public String call() throws Exception {
                 URLConnection connection = new URL(url+mapToQueryString(params.get())).openConnection();
-//                URLConnection connection = new URL(url).openConnection();
                 InputStream response = connection.getInputStream();
                 String jsonString = CharStreams.toString(new InputStreamReader(response, Charsets.UTF_8));
                 return jsonString;
