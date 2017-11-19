@@ -43,6 +43,11 @@ public class SlugChatMyBatisModule extends MyBatisModule {
         myBatisProperties.setProperty("JDBC.driver", "com.mysql.cj.jdbc.Driver");
         myBatisProperties.setProperty("JDBC.url", jdbcUrl );
         myBatisProperties.setProperty("JDBC.autoCommit", "false");
+        myBatisProperties.setProperty("Pool.PingQuery", "select clientId from tbl_clients where clientId=1");
+        myBatisProperties.setProperty("Pool.PingEnabled", "true");
+//        myBatisProperties.setProperty("Pool.PingQuery", "select clientId from tbl_clients where clientId=1");
+//        myBatisProperties.setProperty("Pool.PingQuery", "select clientId from tbl_clients where clientId=1");
+
         return myBatisProperties;
     }
 
