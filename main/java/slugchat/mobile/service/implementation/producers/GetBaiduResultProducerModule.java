@@ -33,6 +33,11 @@ public class GetBaiduResultProducerModule extends AbstractModule {
     @interface BaiduListResult{}
 
 
+    @BindingAnnotation
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface ParsedBaiduDocument{}
+
+
 
     @Override
     protected void configure() {
@@ -71,16 +76,29 @@ public class GetBaiduResultProducerModule extends AbstractModule {
     @BaiduSingleResult
     ListenableFuture<String> provideBaiduSingleResult(
             @MobileExecutorService ListeningExecutorService service,
-            @HttpGetResponse ListenableFuture<String> httpResponse){
+            @ParsedBaiduDocument ListenableFuture<Document> doc){
         return service.submit(new Callable<String>() {
             @Override
             public String call() throws Exception {
-                Document doc = Jsoup.parse(httpResponse.get());
-                Element resultNode = doc.selectFirst(".op_exactqa_s_answer");
+                Element resultNode = doc.get().selectFirst(".op_exactqa_s_answer");
                 if(resultNode != null) {
                     return resultNode.text();
                 }
                 return "";
+            }
+        });
+    }
+
+    @Provides
+    @ParsedBaiduDocument
+    ListenableFuture<Document> providesParsedDocument(
+            @MobileExecutorService ListeningExecutorService service,
+            @HttpGetResponse ListenableFuture<String> httpResponse
+    ){
+        return service.submit(new Callable<Document>() {
+            @Override
+            public Document call() throws Exception {
+                return Jsoup.parse(httpResponse.get());
             }
         });
     }
@@ -90,12 +108,11 @@ public class GetBaiduResultProducerModule extends AbstractModule {
     @BaiduListResult
     ListenableFuture<String> provideBaiduListResult(
             @MobileExecutorService ListeningExecutorService service,
-            @HttpGetResponse ListenableFuture<String> httpResponse){
+            @ParsedBaiduDocument ListenableFuture<Document> doc){
         return service.submit(new Callable<String>() {
             @Override
             public String call() throws Exception {
-                Document doc = Jsoup.parse(httpResponse.get());
-                Elements resultNodes = doc.select(".op_exactqa_itemsArea .c-gap-top-small a");
+                Elements resultNodes = doc.get().select(".op_exactqa_itemsArea .c-gap-top-small a");
                 List<String> results = new LinkedList<String>();
                 for(Element node : resultNodes){
                     if(node.hasAttr("title")) {

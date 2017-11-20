@@ -22,6 +22,13 @@ public class ChatbotResponseProducerModule extends AbstractModule {
             "小虫虫来啦。你想听小虫虫讲什么样的故事呢?"
     );
 
+    static final ImmutableList<String> NOSPEECH_RESPONSES = ImmutableList.of(
+            "今天有什么有趣的事情吗？",
+            "小朋友，小虫虫可会讲故事了。",
+            "你不跟小虫虫说话，小虫虫很无聊。",
+            "你可以问小虫虫中国有多大。"
+    );
+
     @Override
     protected void configure() {
         install(new DialogflowResultProducerModule());
@@ -33,7 +40,12 @@ public class ChatbotResponseProducerModule extends AbstractModule {
     String providesCommandResponse( @RequestSpeechText String text){
         if(text.startsWith("$")){
             Random rand = new Random();
-            return START_RESPONSES.get(rand.nextInt(START_RESPONSES.size()));
+            if(text.equals("$start")) {
+                return START_RESPONSES.get(rand.nextInt(START_RESPONSES.size()));
+            }
+            if(text.equals("$noSpeech{30}")){
+                return NOSPEECH_RESPONSES.get(rand.nextInt(NOSPEECH_RESPONSES.size()));
+            }
         }
         return "";
     }
