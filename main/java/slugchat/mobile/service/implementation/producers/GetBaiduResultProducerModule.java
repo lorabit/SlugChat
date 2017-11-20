@@ -49,8 +49,12 @@ public class GetBaiduResultProducerModule extends AbstractModule {
     @BaiduResult
     ListenableFuture<String> providesBaiduResult(
             @MobileExecutorService ListeningExecutorService service,
+            @RequestSpeechText String speech,
             @BaiduSingleResult ListenableFuture<String> singleResult,
             @BaiduListResult ListenableFuture<String> listResult){
+        if(!speech.endsWith("?")){
+            return Futures.immediateFuture("");
+        }
         ImmutableList<ListenableFuture<String>> futureResults = ImmutableList.of(singleResult, listResult);
         ListenableFuture<List<String>> results = Futures.successfulAsList(futureResults);
         return service.submit(new Callable<String>() {
