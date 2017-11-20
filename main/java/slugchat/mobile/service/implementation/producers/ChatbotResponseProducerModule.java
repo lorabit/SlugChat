@@ -11,9 +11,16 @@ import com.kidschat.service.mobile.UserRequest;
 import main.java.slugchat.mobile.service.implementation.annotations.*;
 
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Callable;
 
 public class ChatbotResponseProducerModule extends AbstractModule {
+
+    static final ImmutableList<String> START_RESPONSES = ImmutableList.of(
+            "小朋友，好久不见。\n 你可以跟我说：我要听故事。",
+            "你好啊，小朋友。\n 你有什么问题要问我吗？",
+            "小虫虫来啦。你想听小虫虫讲什么样的故事呢?"
+    );
 
     @Override
     protected void configure() {
@@ -22,12 +29,26 @@ public class ChatbotResponseProducerModule extends AbstractModule {
     }
 
     @Provides
+    @CommandResponse
+    String providesCommandResponse( @RequestSpeechText String text){
+        if(text.startsWith("$")){
+            Random rand = new Random();
+            return START_RESPONSES.get(rand.nextInt(START_RESPONSES.size()));
+        }
+        return "";
+    }
+
+    @Provides
     @SelectedResult
     ListenableFuture<String> providesSelectedResult(
             @MobileExecutorService ListeningExecutorService service,
+            @CommandResponse String commandResponse,
             @BaiduResult ListenableFuture<String> baiduResult,
             @DialogflowResult ListenableFuture<String> dialogflowResult
     ){
+        if(commandResponse.length()>0){
+            return Futures.immediateFuture(commandResponse);
+        }
         ImmutableList<ListenableFuture<String>> futureResults = ImmutableList.of(baiduResult, dialogflowResult);
         ListenableFuture<List<String>> results = Futures.successfulAsList(futureResults);
         return service.submit(new Callable<String>() {
