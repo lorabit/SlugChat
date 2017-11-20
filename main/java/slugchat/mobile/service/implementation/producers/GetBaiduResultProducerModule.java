@@ -52,7 +52,7 @@ public class GetBaiduResultProducerModule extends AbstractModule {
             @RequestSpeechText String speech,
             @BaiduSingleResult ListenableFuture<String> singleResult,
             @BaiduListResult ListenableFuture<String> listResult){
-        if(!speech.endsWith("?")){
+        if(!speech.endsWith("？")){
             return Futures.immediateFuture("");
         }
         ImmutableList<ListenableFuture<String>> futureResults = ImmutableList.of(singleResult, listResult);
