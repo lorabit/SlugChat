@@ -29,6 +29,7 @@ public class ChatbotResponseProducerModule extends AbstractModule {
             "你可以问小虫虫中国有多大。"
     );
 
+
     @Override
     protected void configure() {
         install(new DialogflowResultProducerModule());
@@ -43,7 +44,7 @@ public class ChatbotResponseProducerModule extends AbstractModule {
             if(text.equals("$start")) {
                 return START_RESPONSES.get(rand.nextInt(START_RESPONSES.size()));
             }
-            if(text.equals("$noSpeech{30}")){
+            if(text.equals("$noSpeech{30}") || text.equals("$hit")){
                 return NOSPEECH_RESPONSES.get(rand.nextInt(NOSPEECH_RESPONSES.size()));
             }
         }
