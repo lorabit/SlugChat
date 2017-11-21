@@ -1,9 +1,9 @@
-package main.java.slugchat.mobile.service.implementation.models;
+package main.java.slugchat.mybatis.impl;
 
 import com.google.common.collect.ImmutableList;
-import main.java.slugchat.mobile.service.domain.Client;
-import main.java.slugchat.mobile.service.domain.Log;
-import main.java.slugchat.mobile.service.domain.Profile;
+import main.java.slugchat.mybatis.domain.Client;
+import main.java.slugchat.mybatis.domain.Log;
+import main.java.slugchat.mybatis.domain.Profile;
 
 public interface MobileService {
 

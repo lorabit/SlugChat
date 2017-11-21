@@ -1,10 +1,10 @@
-package main.java.slugchat.mobile.service;
+package main.java.slugchat.mybatis;
 
-import main.java.slugchat.mobile.service.implementation.models.MobileService;
-import main.java.slugchat.mobile.service.implementation.models.MobileServiceMapperImpl;
-import main.java.slugchat.mobile.service.mapper.ClientMapper;
-import main.java.slugchat.mobile.service.mapper.LogMapper;
-import main.java.slugchat.mobile.service.mapper.ProfileMapper;
+import main.java.slugchat.mybatis.impl.MobileService;
+import main.java.slugchat.mybatis.impl.MobileServiceMapperImpl;
+import main.java.slugchat.mybatis.mapper.ClientMapper;
+import main.java.slugchat.mybatis.mapper.LogMapper;
+import main.java.slugchat.mybatis.mapper.ProfileMapper;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.guice.MyBatisModule;
 import org.mybatis.guice.datasource.builtin.PooledDataSourceProvider;

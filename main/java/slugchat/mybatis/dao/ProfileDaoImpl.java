@@ -1,12 +1,12 @@
-package main.java.slugchat.mobile.service.dao;
+package main.java.slugchat.mybatis.dao;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
-import main.java.slugchat.mobile.service.domain.Profile;
-import main.java.slugchat.mobile.service.mapper.ProfileMapper;
+import main.java.slugchat.mybatis.domain.Profile;
+import main.java.slugchat.mybatis.mapper.ProfileMapper;
 import org.apache.ibatis.session.SqlSession;
 
-public class ProfileDaoImpl implements ProfileDao{
+public class ProfileDaoImpl implements main.java.slugchat.mybatis.dao.ProfileDao {
     private SqlSession sqlSession;
 
     @Inject
@@ -25,6 +25,6 @@ public class ProfileDaoImpl implements ProfileDao{
     public ImmutableList<Profile> listProfileUnderClient(Long clientId) {
         return ImmutableList.copyOf(
                 sqlSession.selectList(
-                        "main.java.slugchat.mobile.service.mapper.ProfileMapper.listProfilesUnderClient",clientId));
+                        "ProfileMapper.listProfilesUnderClient",clientId));
     }
 }

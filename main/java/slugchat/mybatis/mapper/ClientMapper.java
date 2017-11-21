@@ -1,7 +1,7 @@
-package main.java.slugchat.mobile.service.mapper;
+package main.java.slugchat.mybatis.mapper;
 
 import org.apache.ibatis.annotations.*;
-import main.java.slugchat.mobile.service.domain.Client;
+import main.java.slugchat.mybatis.domain.Client;
 
 public interface ClientMapper {
 

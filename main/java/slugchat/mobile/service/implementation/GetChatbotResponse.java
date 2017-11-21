@@ -7,8 +7,8 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.kidschat.service.mobile.ChatbotResponse;
 import com.kidschat.service.mobile.UserRequest;
-import main.java.slugchat.mobile.service.domain.Log;
-import main.java.slugchat.mobile.service.implementation.models.MobileService;
+import main.java.slugchat.mybatis.domain.Log;
+import main.java.slugchat.mybatis.impl.MobileService;
 import main.java.slugchat.mobile.service.implementation.producers.ChatbotResponseProducerModule;
 import main.java.slugchat.mobile.service.implementation.producers.ExecutorServiceModule;
 import org.apache.log4j.Logger;
@@ -22,7 +22,7 @@ public class GetChatbotResponse {
 
     static Logger logger = Logger.getLogger(GetChatbotResponse.class);
 
-    private main.java.slugchat.mobile.service.implementation.models.MobileService mobileService;
+    private MobileService mobileService;
 
     @Inject
     Provider<ListenableFuture<ChatbotResponse>> chatbotResponseProvider;

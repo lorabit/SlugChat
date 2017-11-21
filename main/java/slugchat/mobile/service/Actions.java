@@ -4,9 +4,9 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.kidschat.service.mobile.*;
 import io.grpc.stub.StreamObserver;
+import main.java.slugchat.mybatis.SlugChatMyBatisModule;
 import main.java.slugchat.mobile.service.implementation.*;
-import main.java.slugchat.mobile.service.implementation.models.MobileService;
-import main.java.slugchat.mobile.service.implementation.producers.ChatbotResponseProducerModule;
+import main.java.slugchat.mybatis.impl.MobileService;
 import org.apache.log4j.Logger;
 
 import static com.google.inject.Guice.createInjector;

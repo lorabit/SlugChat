@@ -7,7 +7,7 @@ java_library(
     srcs = glob(["*.java"]),
     deps = [
         "//main/java/slugchat/mobile/service/implementation/annotations",
-        "//main/java/slugchat/mobile/service/implementation/models",
+        "//main/java/slugchat/mybatis/impl",
         "@com_google_guava_guava//jar",
         "@com_google_inject_guice//jar",
         "@joda_time_joda_time//jar",

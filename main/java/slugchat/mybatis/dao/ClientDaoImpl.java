@@ -1,8 +1,8 @@
-package main.java.slugchat.mobile.service.dao;
+package main.java.slugchat.mybatis.dao;
 
 import com.google.inject.Inject;
-import main.java.slugchat.mobile.service.domain.Client;
-import main.java.slugchat.mobile.service.mapper.ClientMapper;
+import main.java.slugchat.mybatis.domain.Client;
+import main.java.slugchat.mybatis.mapper.ClientMapper;
 import org.apache.ibatis.session.SqlSession;
 
 public class ClientDaoImpl implements ClientDao {
@@ -16,7 +16,7 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public Client getClient(Long clientId) {
-        return (Client) this.sqlSession.selectOne("main.java.slugchat.mobile.service.mapper.ClientMapper.getClient",clientId);
+        return (Client) this.sqlSession.selectOne("ClientMapper.getClient",clientId);
     }
 
 

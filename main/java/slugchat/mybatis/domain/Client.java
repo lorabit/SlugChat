@@ -1,4 +1,4 @@
-package main.java.slugchat.mobile.service.domain;
+package main.java.slugchat.mybatis.domain;
 
 public class Client {
 

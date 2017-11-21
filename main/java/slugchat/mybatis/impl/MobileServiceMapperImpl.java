@@ -1,13 +1,13 @@
-package main.java.slugchat.mobile.service.implementation.models;
+package main.java.slugchat.mybatis.impl;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
-import main.java.slugchat.mobile.service.domain.Client;
-import main.java.slugchat.mobile.service.domain.Log;
-import main.java.slugchat.mobile.service.domain.Profile;
-import main.java.slugchat.mobile.service.mapper.ClientMapper;
-import main.java.slugchat.mobile.service.mapper.LogMapper;
-import main.java.slugchat.mobile.service.mapper.ProfileMapper;
+import main.java.slugchat.mybatis.domain.Client;
+import main.java.slugchat.mybatis.domain.Log;
+import main.java.slugchat.mybatis.domain.Profile;
+import main.java.slugchat.mybatis.mapper.ClientMapper;
+import main.java.slugchat.mybatis.mapper.LogMapper;
+import main.java.slugchat.mybatis.mapper.ProfileMapper;
 
 public class MobileServiceMapperImpl implements MobileService {
 

@@ -1,6 +1,6 @@
-package main.java.slugchat.mobile.service.dao;
+package main.java.slugchat.mybatis.dao;
 
-import main.java.slugchat.mobile.service.domain.Client;
+import main.java.slugchat.mybatis.domain.Client;
 
 public interface ClientDao {
 

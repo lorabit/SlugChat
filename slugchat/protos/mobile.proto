@@ -37,6 +37,7 @@ service Mobile {
 
     // Rpc for creating log
     rpc CreateLog (Log) returns (Log) {}
+
 }
 
 message Log{

@@ -1,6 +1,6 @@
-package main.java.slugchat.mobile.service.mapper;
+package main.java.slugchat.mybatis.mapper;
 
-import main.java.slugchat.mobile.service.domain.Log;
+import main.java.slugchat.mybatis.domain.Log;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 

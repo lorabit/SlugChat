@@ -20,10 +20,10 @@ java_test(
     srcs = glob(["*.java"]),
     test_class = "test.java.slugchat.mobile.service.MobileServiceTest",
     deps = [
-        "//main/java/slugchat/mobile/service/dao",
-        "//main/java/slugchat/mobile/service/domain",
+        "//main/java/slugchat/mybatis/dao:dao",
+        "//main/java/slugchat/mybatis/domain:domain",
         "//main/java/slugchat/mobile/service/implementation",
-        "//main/java/slugchat/mobile/service/mapper",
+        "//main/java/slugchat/mybatis/mapper:mapper",
         "@aopalliance_aopalliance//jar",
         "@com_google_guava_guava//jar",
         "@com_google_inject_extensions_guice_servlet//jar",

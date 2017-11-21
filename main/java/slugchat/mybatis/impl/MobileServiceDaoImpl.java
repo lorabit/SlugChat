@@ -1,13 +1,13 @@
-package main.java.slugchat.mobile.service.implementation.models;
+package main.java.slugchat.mybatis.impl;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
-import main.java.slugchat.mobile.service.dao.ClientDao;
-import main.java.slugchat.mobile.service.dao.LogDao;
-import main.java.slugchat.mobile.service.dao.ProfileDao;
-import main.java.slugchat.mobile.service.domain.Client;
-import main.java.slugchat.mobile.service.domain.Log;
-import main.java.slugchat.mobile.service.domain.Profile;
+import main.java.slugchat.mybatis.dao.ClientDao;
+import main.java.slugchat.mybatis.dao.LogDao;
+import main.java.slugchat.mybatis.dao.ProfileDao;
+import main.java.slugchat.mybatis.domain.Client;
+import main.java.slugchat.mybatis.domain.Log;
+import main.java.slugchat.mybatis.domain.Profile;
 
 public class MobileServiceDaoImpl implements MobileService {
 

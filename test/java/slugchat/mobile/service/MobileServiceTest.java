@@ -1,10 +1,10 @@
 package test.java.slugchat.mobile.service;
 
 import com.google.inject.Injector;
-import main.java.slugchat.mobile.service.domain.Client;
-import main.java.slugchat.mobile.service.implementation.models.MobileService;
-import main.java.slugchat.mobile.service.implementation.models.MobileServiceMapperImpl;
-import main.java.slugchat.mobile.service.mapper.ClientMapper;
+import main.java.slugchat.mybatis.domain.Client;
+import main.java.slugchat.mybatis.impl.MobileService;
+import main.java.slugchat.mybatis.impl.MobileServiceMapperImpl;
+import main.java.slugchat.mybatis.mapper.ClientMapper;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.junit.Before;
 import org.junit.Test;

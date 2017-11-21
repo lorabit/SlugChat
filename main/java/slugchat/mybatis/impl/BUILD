@@ -3,12 +3,12 @@ package(
 )
 
 java_library(
-    name = "models",
+    name = "impl",
     srcs = glob(["*.java"]),
     deps = [
-       "//main/java/slugchat/mobile/service/dao",
-       "//main/java/slugchat/mobile/service/domain",
-       "//main/java/slugchat/mobile/service/mapper",
+       "//main/java/slugchat/mybatis/dao:dao",
+       "//main/java/slugchat/mybatis/domain:domain",
+       "//main/java/slugchat/mybatis/mapper:mapper",
        "//slugchat/protos:mobile_java_proto",
        "@com_google_guava_guava//jar",
        "@com_google_inject_extensions_guice_servlet//jar",
