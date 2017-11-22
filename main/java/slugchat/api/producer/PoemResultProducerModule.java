@@ -167,7 +167,7 @@ public class PoemResultProducerModule extends AbstractModule {
     @Provides
     @RequestPoem
     Poem providesRequestPoem(DialogflowWebhookRequest request){
-        if(request.getResult().getMetadata().getIntentId().equals("poem")){
+//        if(request.getResult().getMetadata().getIntentName().equals("poem")){
             Poem poem = new Poem();
             Map<String, String> params = request.getResult().getParameters();
             if(params.containsKey(DialogflowConstants.PARAM_POEM_TITLE)){
@@ -177,8 +177,8 @@ public class PoemResultProducerModule extends AbstractModule {
                 poem.setTitle(params.get(DialogflowConstants.PARAM_POEM_AUTHOR));
             }
             return poem;
-        }
-        return null;
+//        }
+//        return null;
     }
 
 }
