@@ -3,10 +3,20 @@ package main.java.slugchat.api.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
+import com.google.common.util.concurrent.ListenableFuture;
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import main.java.slugchat.api.annotations.WebhookResponse;
 import main.java.slugchat.api.models.DialogflowWebhookRequest;
 import main.java.slugchat.api.models.DialogflowWebhookResponse;
+import main.java.slugchat.api.producer.ApiExecutorServiceProducerModule;
+import main.java.slugchat.api.producer.WebhookResponseProducerModule;
+import main.java.slugchat.mybatis.SlugChatMyBatisModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,47 +38,57 @@ public class DialogflowController {
 
     private static final Logger logger = LoggerFactory.getLogger(DialogflowController.class);
 
-    @RequestMapping(
-            value = "/dialogflow/webhook",
-            method = RequestMethod.POST
-    )
+    @Inject
+    @WebhookResponse
+    Provider<ListenableFuture<DialogflowWebhookResponse>> responseProvider;
+
+    DialogflowWebhookRequest userRequest;
+
+    Provider<DialogflowWebhookRequest> requestProvider = new Provider<DialogflowWebhookRequest>() {
+        @Override
+        public DialogflowWebhookRequest get() {
+            return userRequest;
+        }
+    };
 
 
-    public DialogflowWebhookResponse webhook(@RequestBody DialogflowWebhookRequest request){
-        DialogflowWebhookResponse response = new DialogflowWebhookResponse();
-        response.setSpeech("You just said: "+request.getId());
-        return response;
+    @javax.inject.Inject
+    public DialogflowController(@Value("${db.url}") String dbUrl){
+        Guice.createInjector(
+                new AbstractModule() {
+                    @Override
+                    protected void configure() {
+                        bind(DialogflowWebhookRequest.class).toProvider(requestProvider);
+                    }
+                },
+        new ApiExecutorServiceProducerModule(),
+                new SlugChatMyBatisModule(dbUrl),
+                new WebhookResponseProducerModule()
+                )
+                .injectMembers(this);
     }
 
     @RequestMapping(
             value = "/dialogflow/webhook/raw",
             method = RequestMethod.POST
     )
-    public DialogflowWebhookResponse webhookRaw(HttpServletRequest request) throws IOException{
-        DialogflowWebhookResponse response = new DialogflowWebhookResponse();
+    public DialogflowWebhookResponse webhookRaw(HttpServletRequest request) throws Exception{
         String jsonString = CharStreams.toString(new InputStreamReader(request.getInputStream(), Charsets.UTF_8));
         ObjectMapper mapper = new ObjectMapper();
         DialogflowWebhookRequest obj = mapper.readValue(jsonString,DialogflowWebhookRequest.class);
-        response.setSpeech("you just said: " + obj.getResult().getResolvedQuery());
-        logger.info(jsonString);
-        Enumeration<String> headerNames = request.getHeaderNames();
-        while(headerNames.hasMoreElements()){
-            String headerName = headerNames.nextElement();
-            logger.info(headerName+":"+request.getHeader(headerName));
-        }
-        return response;
+        return responseProvider.get().get();
     }
 
 
-    @RequestMapping(
-            value = "/dialogflow/webhook/map",
-            method = RequestMethod.POST
-    )
-    public DialogflowWebhookResponse webhookMap(@RequestBody Map<String,Object> request){
-        DialogflowWebhookResponse response = new DialogflowWebhookResponse();
-        response.setSpeech("You just said");
-        logger.info(request.toString());
-        return response;
-    }
+//    @RequestMapping(
+//            value = "/dialogflow/webhook/map",
+//            method = RequestMethod.POST
+//    )
+//    public DialogflowWebhookResponse webhookMap(@RequestBody Map<String,Object> request){
+//        DialogflowWebhookResponse response = new DialogflowWebhookResponse();
+//        response.setSpeech("You just said");
+//        logger.info(request.toString());
+//        return response;
+//    }
 
 }

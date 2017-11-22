@@ -23,6 +23,11 @@ public class DialogflowWebhookRequest {
     public class Result{
         private String resolvedQuery;
         private Map<String, String> parameters;
+        private Metadata metadata;
+
+        public Metadata getMetadata() {
+            return metadata;
+        }
 
         public String getResolvedQuery() {
             return resolvedQuery;
@@ -38,6 +43,33 @@ public class DialogflowWebhookRequest {
 
         public void setParameters(Map<String, String> parameters) {
             this.parameters = parameters;
+        }
+
+        public void setMetadata(Metadata metadata) {
+            this.metadata = metadata;
+        }
+
+
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public class Metadata{
+            private String intentId;
+            private String intentName;
+
+            public String getIntentId() {
+                return intentId;
+            }
+
+            public String getIntentName() {
+                return intentName;
+            }
+
+            public void setIntentId(String intentId) {
+                this.intentId = intentId;
+            }
+
+            public void setIntentName(String intentName) {
+                this.intentName = intentName;
+            }
         }
     }
 

@@ -39,6 +39,7 @@ java_binary(
     main_class = "main.java.slugchat.api.Application",
     args = [
         "--server.port=8080",
+        "--db.url=jdbc:mysql://slugchat-test.cqpr0kxypucj.us-west-2.rds.amazonaws.com/slugchat?user=root&password=password&useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true",
 #        "--server.contextPath=bin/",
 #        "--debug",
         ],

@@ -543,7 +543,6 @@ def generated_maven_jars():
 
 def generated_java_libraries():
 
-
   native.java_library(
       name = "org_jsoup_jsoup",
       visibility = ["//visibility:public"],

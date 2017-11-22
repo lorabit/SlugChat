@@ -9,6 +9,8 @@ import main.java.slugchat.mobile.service.implementation.*;
 import main.java.slugchat.mybatis.impl.MobileService;
 import org.apache.log4j.Logger;
 
+import java.util.List;
+
 import static com.google.inject.Guice.createInjector;
 
 /**

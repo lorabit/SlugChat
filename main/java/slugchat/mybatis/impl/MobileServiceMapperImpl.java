@@ -4,9 +4,11 @@ import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
 import main.java.slugchat.mybatis.domain.Client;
 import main.java.slugchat.mybatis.domain.Log;
+import main.java.slugchat.mybatis.domain.Poem;
 import main.java.slugchat.mybatis.domain.Profile;
 import main.java.slugchat.mybatis.mapper.ClientMapper;
 import main.java.slugchat.mybatis.mapper.LogMapper;
+import main.java.slugchat.mybatis.mapper.PoemMapper;
 import main.java.slugchat.mybatis.mapper.ProfileMapper;
 
 public class MobileServiceMapperImpl implements MobileService {
@@ -19,6 +21,9 @@ public class MobileServiceMapperImpl implements MobileService {
 
     @Inject
     private LogMapper logMapper;
+
+    @Inject
+    private PoemMapper poemMapper;
 
     @Override
     public Client getClientByClientId(Long clientId) {
@@ -46,5 +51,28 @@ public class MobileServiceMapperImpl implements MobileService {
     public Log createLog(Log log) {
         this.logMapper.createLog(log);
         return log;
+    }
+
+    @Override
+    public Poem getPoemById(int poemId) {
+        return this.poemMapper.getPoemById(poemId);
+    }
+
+    @Override
+    public ImmutableList<Poem> listPoemsWithAuthor(String author) {
+        return ImmutableList.copyOf(this.poemMapper.listPoemsWithAuthor(author));
+    }
+
+    @Override
+    public ImmutableList<Poem> listPoemsWithTitle(String title) {
+        return ImmutableList.copyOf(this.poemMapper.listPoemsWithTitle(title));
+    }
+
+    @Override
+    public ImmutableList<Poem> listPoemsWithTitleAndAuthor(String title, String author) {
+        Poem poem = new Poem();
+        poem.setTitle(title);
+        poem.setAuthor(author);
+        return ImmutableList.copyOf(this.poemMapper.listPoemsWithTitleAndAuthor(poem));
     }
 }
