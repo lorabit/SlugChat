@@ -7,6 +7,12 @@ public class Profile {
     private String name;
     private int avatar;
     private Long createTime;
+    private int bucket;
+
+
+    public int getBucket() {
+        return bucket;
+    }
 
     public String getName() {
         return name;
@@ -46,6 +52,10 @@ public class Profile {
 
     public void setProfileId(Long profileId) {
         this.profileId = profileId;
+    }
+
+    public void setBucket(int bucket) {
+        this.bucket = bucket;
     }
 
     public Profile(){

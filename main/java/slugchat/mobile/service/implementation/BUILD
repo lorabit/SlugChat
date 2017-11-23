@@ -6,6 +6,7 @@ java_library(
     name = "implementation",
     srcs = glob(["*.java"]),
     deps = [
+        "//main/java/slugchat/constants",
         "//main/java/slugchat/mybatis/dao:dao",
         "//main/java/slugchat/mybatis/domain:domain",
         "//main/java/slugchat/mybatis/mapper:mapper",

@@ -13,7 +13,7 @@ public interface ProfileMapper {
     @Select("SELECT * FROM tbl_profiles WHERE clientId=#{clientId}")
     List<Profile> listProfilesUnderClient(@Param("clientId") Long clientId);
 
-    @Insert("INSERT INTO tbl_profiles(clientId, name, avatar, createTime) values(#{clientId},#{name},#{avatar},#{createTime})")
+    @Insert("INSERT INTO tbl_profiles(clientId, name, avatar, createTime, bucket) values(#{clientId},#{name},#{avatar},#{createTime},#{bucket})")
     @Options(useGeneratedKeys=true, keyProperty="profileId")
     int createProfile(Profile profile);
 
