@@ -21,5 +21,5 @@ public interface MobileService {
 
 
 
-    Story getStoryByEntityName(String entityName);
+    ImmutableList<Story> listStoriesByEntityName(String entityName);
 }

@@ -10,6 +10,7 @@ import main.java.slugchat.api.annotations.StoryResult;
 import main.java.slugchat.api.models.DialogflowWebhookRequest;
 import main.java.slugchat.api.models.DialogflowWebhookResponse;
 import main.java.slugchat.constants.DialogflowConstants;
+import main.java.slugchat.mybatis.domain.Story;
 import main.java.slugchat.mybatis.impl.MobileService;
 
 import java.util.Map;
@@ -40,14 +41,16 @@ public class StoryResultProducerModule extends AbstractModule {
             public DialogflowWebhookResponse call() throws Exception {
                 Map<String, String> params = request.getResult().getParameters();
                 DialogflowWebhookResponse response = new DialogflowWebhookResponse();
+                Random rand = new Random();
                 if(params.containsKey(DialogflowConstants.PARAM_STORY_TITLE)) {
+                    ImmutableList<Story> stories =  mobileService
+                            .listStoriesByEntityName(params.get(DialogflowConstants.PARAM_STORY_TITLE));
                     response.setSpeech(
                             ContentFormatUtil.storyToSpeech(
-                                    mobileService
-                                            .getStoryByEntityName(params.get(DialogflowConstants.PARAM_STORY_TITLE)))
+                                    stories.get(rand.nextInt(stories.size()))
+                            )
                     );
                 }else{
-                    Random rand = new Random();
                     response.setSpeech(DEFAULT_RESPONSES.get(rand.nextInt(DEFAULT_RESPONSES.size())));
                 }
                 return response;

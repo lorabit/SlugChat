@@ -74,7 +74,7 @@ public class MobileServiceMapperImpl implements MobileService {
     }
 
     @Override
-    public Story getStoryByEntityName(String entityName) {
-        return storyMapper.getStoryByEntityName(entityName);
+    public ImmutableList<Story> listStoriesByEntityName(String entityName) {
+        return ImmutableList.copyOf(storyMapper.listStoriesByEntityName(entityName));
     }
 }

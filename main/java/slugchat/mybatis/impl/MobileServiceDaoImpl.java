@@ -70,7 +70,7 @@ public class MobileServiceDaoImpl implements MobileService {
     }
 
     @Override
-    public Story getStoryByEntityName(String entityName) {
-        return this.storyDao.getStoryByEntityName(entityName);
+    public ImmutableList<Story> listStoriesByEntityName(String entityName) {
+        return this.storyDao.listStoriesByEntityName(entityName);
     }
 }
