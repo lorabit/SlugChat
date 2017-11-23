@@ -1,10 +1,7 @@
 package main.java.slugchat.mybatis.impl;
 
 import com.google.common.collect.ImmutableList;
-import main.java.slugchat.mybatis.domain.Client;
-import main.java.slugchat.mybatis.domain.Log;
-import main.java.slugchat.mybatis.domain.Poem;
-import main.java.slugchat.mybatis.domain.Profile;
+import main.java.slugchat.mybatis.domain.*;
 
 public interface MobileService {
 
@@ -22,4 +19,7 @@ public interface MobileService {
     ImmutableList<Poem> listPoemsWithTitle(String title);
     ImmutableList<Poem> listPoemsWithTitleAndAuthor(String title, String author);
 
+
+
+    Story getStoryByEntityName(String entityName);
 }

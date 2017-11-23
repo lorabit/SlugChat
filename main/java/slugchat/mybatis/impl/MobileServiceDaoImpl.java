@@ -2,14 +2,8 @@ package main.java.slugchat.mybatis.impl;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
-import main.java.slugchat.mybatis.dao.ClientDao;
-import main.java.slugchat.mybatis.dao.LogDao;
-import main.java.slugchat.mybatis.dao.PoemDao;
-import main.java.slugchat.mybatis.dao.ProfileDao;
-import main.java.slugchat.mybatis.domain.Client;
-import main.java.slugchat.mybatis.domain.Log;
-import main.java.slugchat.mybatis.domain.Poem;
-import main.java.slugchat.mybatis.domain.Profile;
+import main.java.slugchat.mybatis.dao.*;
+import main.java.slugchat.mybatis.domain.*;
 
 public class MobileServiceDaoImpl implements MobileService {
 
@@ -25,6 +19,9 @@ public class MobileServiceDaoImpl implements MobileService {
 
     @Inject
     private PoemDao poemDao;
+
+    @Inject
+    private StoryDao storyDao;
 
     @Override
     public Client getClientByClientId(Long clientId) {
@@ -70,5 +67,10 @@ public class MobileServiceDaoImpl implements MobileService {
     @Override
     public ImmutableList<Poem> listPoemsWithAuthor(String author) {
         return this.poemDao.listPoemsWithAuthor(author);
+    }
+
+    @Override
+    public Story getStoryByEntityName(String entityName) {
+        return this.storyDao.getStoryByEntityName(entityName);
     }
 }

@@ -2,12 +2,10 @@ package main.java.slugchat.api.producer;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
-import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.inject.AbstractModule;
 import com.google.inject.BindingAnnotation;
-import com.google.inject.Inject;
 import com.google.inject.Provides;
 import main.java.slugchat.api.annotations.ApiExecutorService;
 import main.java.slugchat.api.annotations.PoemResult;
@@ -15,7 +13,6 @@ import main.java.slugchat.api.models.DialogflowWebhookRequest;
 import main.java.slugchat.api.models.DialogflowWebhookResponse;
 import main.java.slugchat.constants.DialogflowConstants;
 import main.java.slugchat.constants.KnowledgeBaseConstants;
-import main.java.slugchat.mybatis.dao.PoemDao;
 import main.java.slugchat.mybatis.domain.Poem;
 import main.java.slugchat.mybatis.impl.MobileService;
 
@@ -95,7 +92,7 @@ public class PoemResultProducerModule extends AbstractModule {
                 if(result == null || result.size() == 0){
                     response.setSpeech(NOT_FOUND_RESPONSES.get(rand.nextInt(NOT_FOUND_RESPONSES.size())));
                 }else{
-                    response.setSpeech(PoemUtil.toSpeech(result.get(rand.nextInt(result.size()))));
+                    response.setSpeech(ContentFormatUtil.poemToSpeech(result.get(rand.nextInt(result.size()))));
                 }
                 return response;
             }

@@ -2,14 +2,8 @@ package main.java.slugchat.mybatis.impl;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
-import main.java.slugchat.mybatis.domain.Client;
-import main.java.slugchat.mybatis.domain.Log;
-import main.java.slugchat.mybatis.domain.Poem;
-import main.java.slugchat.mybatis.domain.Profile;
-import main.java.slugchat.mybatis.mapper.ClientMapper;
-import main.java.slugchat.mybatis.mapper.LogMapper;
-import main.java.slugchat.mybatis.mapper.PoemMapper;
-import main.java.slugchat.mybatis.mapper.ProfileMapper;
+import main.java.slugchat.mybatis.domain.*;
+import main.java.slugchat.mybatis.mapper.*;
 
 public class MobileServiceMapperImpl implements MobileService {
 
@@ -24,6 +18,9 @@ public class MobileServiceMapperImpl implements MobileService {
 
     @Inject
     private PoemMapper poemMapper;
+
+    @Inject
+    private StoryMapper storyMapper;
 
     @Override
     public Client getClientByClientId(Long clientId) {
@@ -74,5 +71,10 @@ public class MobileServiceMapperImpl implements MobileService {
         poem.setTitle(title);
         poem.setAuthor(author);
         return ImmutableList.copyOf(this.poemMapper.listPoemsWithTitleAndAuthor(poem));
+    }
+
+    @Override
+    public Story getStoryByEntityName(String entityName) {
+        return storyMapper.getStoryByEntityName(entityName);
     }
 }

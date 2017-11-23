@@ -8,6 +8,7 @@ import com.google.inject.Provider;
 import com.google.inject.Provides;
 import main.java.slugchat.api.annotations.ApiExecutorService;
 import main.java.slugchat.api.annotations.PoemResult;
+import main.java.slugchat.api.annotations.StoryResult;
 import main.java.slugchat.api.annotations.WebhookResponse;
 import main.java.slugchat.api.models.DialogflowWebhookRequest;
 import main.java.slugchat.api.models.DialogflowWebhookResponse;
@@ -28,6 +29,7 @@ public class WebhookResponseProducerModule extends AbstractModule{
     @Override
     protected void configure() {
         install(new PoemResultProducerModule());
+        install(new StoryResultProducerModule());
     }
 
     @Provides
@@ -35,6 +37,7 @@ public class WebhookResponseProducerModule extends AbstractModule{
     ListenableFuture<DialogflowWebhookResponse> providesDialogflowWebhookResponse(
            @ApiExecutorService ListeningExecutorService executorService,
            @PoemResult ListenableFuture<DialogflowWebhookResponse> poemResult,
+            @StoryResult ListenableFuture<DialogflowWebhookResponse> storyResult,
             DialogflowWebhookRequest request
             ){
         return executorService.submit(new Callable<DialogflowWebhookResponse>() {
@@ -42,6 +45,8 @@ public class WebhookResponseProducerModule extends AbstractModule{
             public DialogflowWebhookResponse call() throws Exception {
                 if(request.getResult().getMetadata().getIntentName().equals(DialogflowConstants.INTENT_POEM))
                     return poemResult.get();
+                if(request.getResult().getMetadata().getIntentName().equals(DialogflowConstants.INTENT_STORY_WITH_TITLE))
+                    return storyResult.get();
 
                 DialogflowWebhookResponse defaultResponse = new DialogflowWebhookResponse();
                 Random rand = new Random();

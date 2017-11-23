@@ -2,10 +2,7 @@ package main.java.slugchat.mybatis;
 
 import main.java.slugchat.mybatis.impl.MobileService;
 import main.java.slugchat.mybatis.impl.MobileServiceMapperImpl;
-import main.java.slugchat.mybatis.mapper.ClientMapper;
-import main.java.slugchat.mybatis.mapper.LogMapper;
-import main.java.slugchat.mybatis.mapper.PoemMapper;
-import main.java.slugchat.mybatis.mapper.ProfileMapper;
+import main.java.slugchat.mybatis.mapper.*;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.mybatis.guice.MyBatisModule;
 import org.mybatis.guice.datasource.builtin.PooledDataSourceProvider;
@@ -36,6 +33,7 @@ public class SlugChatMyBatisModule extends MyBatisModule {
         addMapperClass(ProfileMapper.class);
         addMapperClass(LogMapper.class);
         addMapperClass(PoemMapper.class);
+        addMapperClass(StoryMapper.class);
     }
 
     protected Properties createTestProperties() {
@@ -45,12 +43,12 @@ public class SlugChatMyBatisModule extends MyBatisModule {
         myBatisProperties.setProperty("JDBC.driver", "com.mysql.cj.jdbc.Driver");
         myBatisProperties.setProperty("JDBC.url", jdbcUrl );
         myBatisProperties.setProperty("JDBC.autoCommit", "true");
-        myBatisProperties.setProperty("Pool.PingQuery", "select clientId from tbl_clients where clientId=1");
-        myBatisProperties.setProperty("Pool.PingEnabled", "true");
-        myBatisProperties.setProperty("Pool.MaximumActiveConnections", "10");
-        myBatisProperties.setProperty("Pool.MaximumIdleConnections", "5");
-        myBatisProperties.setProperty("Pool.MaximumCheckoutTime", "150000");
-        myBatisProperties.setProperty("Pool.MaximumTimeToWait", "500");
+        myBatisProperties.setProperty("mybatis.pooled.pingQuery", "select clientId from tbl_clients where clientId=1");
+        myBatisProperties.setProperty("mybatis.pooled.pingEnabled", "true");
+        myBatisProperties.setProperty("mybatis.pooled.maximumActiveConnections", "10");
+        myBatisProperties.setProperty("mybatis.pooled.maximumIdleConnections", "5");
+        myBatisProperties.setProperty("mybatis.pooled.maximumCheckoutTime", "150000");
+        myBatisProperties.setProperty("mybatis.pooled.timeToWait", "500");
         return myBatisProperties;
     }
 
