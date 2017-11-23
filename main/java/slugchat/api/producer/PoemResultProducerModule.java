@@ -112,6 +112,7 @@ public class PoemResultProducerModule extends AbstractModule {
         return executorService.submit(new Callable<ImmutableList<Poem>>() {
             @Override
             public ImmutableList<Poem> call() throws Exception {
+                System.out.println(requestPoem.getAuthor());
                 return mobileService.listPoemsWithAuthor(requestPoem.getAuthor());
             }
         });
@@ -174,7 +175,7 @@ public class PoemResultProducerModule extends AbstractModule {
                 poem.setTitle(params.get(DialogflowConstants.PARAM_POEM_TITLE));
             }
             if(params.containsKey(DialogflowConstants.PARAM_POEM_AUTHOR)){
-                poem.setTitle(params.get(DialogflowConstants.PARAM_POEM_AUTHOR));
+                poem.setAuthor(params.get(DialogflowConstants.PARAM_POEM_AUTHOR));
             }
             return poem;
 //        }

@@ -20,7 +20,7 @@ public class DialogflowWebhookRequest {
 
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public class Result{
+    public static class Result{
         private String resolvedQuery;
         private Map<String, String> parameters;
         private Metadata metadata;
@@ -51,7 +51,7 @@ public class DialogflowWebhookRequest {
 
 
         @JsonIgnoreProperties(ignoreUnknown = true)
-        public class Metadata{
+        public static class Metadata{
             private String intentId;
             private String intentName;
 
