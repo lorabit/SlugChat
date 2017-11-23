@@ -59,17 +59,18 @@ public class GetChatbotResponse {
         requestLog.setLogType(com.kidschat.service.mobile.Log.LogType.SPEECH_REQUEST_VALUE);
         requestLog.setContent(userRequest.getText());
         mobileService.createLog(requestLog);
-//        logger.info(userRequest);
         ChatbotResponse response = chatbotResponseProvider.get().get();
         String result = response.getText();
-//        logger.info(response);
         Log responseLog = new Log();
         responseLog.setProfileId(userRequest.getProfileId());
         responseLog.setCreateTime(Instant.now().getMillis());
         responseLog.setLogType(com.kidschat.service.mobile.Log.LogType.SPEECH_RESPONSE_VALUE);
         responseLog.setContent(result);
-        mobileService.createLog(responseLog);
-
-        return response;
+        responseLog = mobileService.createLog(responseLog);
+        return ChatbotResponse
+                .newBuilder()
+                .mergeFrom(response)
+                .setLogId(responseLog.getLogId())
+                .build();
     }
 }

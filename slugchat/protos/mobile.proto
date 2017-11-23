@@ -51,6 +51,7 @@ message Log{
         SPEECH_REQUEST = 0;
         SPEECH_RESPONSE = 1;
         INTERRUPT_SPEECH = 2;
+        PLAY_STORY = 3;
     }
 
 
@@ -89,6 +90,7 @@ message ChatbotResponse{
     Emotion emotion = 2;
 
     string text = 3;
+    int64 log_id = 4;
 }
 
 
