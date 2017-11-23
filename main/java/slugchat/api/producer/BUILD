@@ -6,6 +6,8 @@ java_library(
     name = "producer",
     srcs = glob(["*.java"]),
     deps = [
+        "//slugchat/protos:mobile_java_proto",
+        "@joda_time_joda_time//jar",
             "//main/java/slugchat/mybatis",
             "//main/java/slugchat/mybatis/impl",
           "//main/java/slugchat/api/annotations",
