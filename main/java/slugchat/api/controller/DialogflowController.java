@@ -75,6 +75,7 @@ public class DialogflowController {
     public DialogflowWebhookResponse webhookRaw(HttpServletRequest request) throws Exception{
         String jsonString = CharStreams.toString(new InputStreamReader(request.getInputStream(), Charsets.UTF_8));
         ObjectMapper mapper = new ObjectMapper();
+        System.out.println(jsonString);
         userRequest = mapper.readValue(jsonString,DialogflowWebhookRequest.class);
         return responseProvider.get().get();
     }
