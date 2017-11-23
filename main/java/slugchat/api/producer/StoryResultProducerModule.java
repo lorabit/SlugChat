@@ -10,8 +10,10 @@ import main.java.slugchat.api.annotations.StoryResult;
 import main.java.slugchat.api.models.DialogflowWebhookRequest;
 import main.java.slugchat.api.models.DialogflowWebhookResponse;
 import main.java.slugchat.constants.DialogflowConstants;
+import main.java.slugchat.mybatis.domain.Log;
 import main.java.slugchat.mybatis.domain.Story;
 import main.java.slugchat.mybatis.impl.MobileService;
+import org.joda.time.Instant;
 
 import java.util.Map;
 import java.util.Random;
@@ -45,9 +47,16 @@ public class StoryResultProducerModule extends AbstractModule {
                 if(params.containsKey(DialogflowConstants.PARAM_STORY_TITLE)) {
                     ImmutableList<Story> stories =  mobileService
                             .listStoriesByEntityName(params.get(DialogflowConstants.PARAM_STORY_TITLE));
+                    Story storyToTalk = stories.get(rand.nextInt(stories.size()));
+                    Log log = new Log();
+                    log.setProfileId(Long.parseLong(request.getSessionId()));
+                    log.setCreateTime(Instant.now().getMillis());
+                    log.setLogType(com.kidschat.service.mobile.Log.LogType.PLAY_STORY_VALUE);
+                    log.setContent(Integer.toString(storyToTalk.getStoryId()));
+                    mobileService.createLog(log);
                     response.setSpeech(
                             ContentFormatUtil.storyToSpeech(
-                                    stories.get(rand.nextInt(stories.size()))
+                                storyToTalk
                             )
                     );
                 }else{

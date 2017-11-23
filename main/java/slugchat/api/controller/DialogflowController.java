@@ -76,7 +76,6 @@ public class DialogflowController {
         String jsonString = CharStreams.toString(new InputStreamReader(request.getInputStream(), Charsets.UTF_8));
         ObjectMapper mapper = new ObjectMapper();
         userRequest = mapper.readValue(jsonString,DialogflowWebhookRequest.class);
-        System.out.println(userRequest.toString());
         return responseProvider.get().get();
     }
 
