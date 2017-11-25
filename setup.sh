@@ -1,1 +1,1 @@
-sudo mkdir /var/log/slugchat
+mkdir ~/slugchat
