@@ -36,8 +36,8 @@ public class StoryApiResponseProducerModule extends AbstractModule {
         return executorService.submit(new Callable<DialogflowWebhookResponse>() {
             @Override
             public DialogflowWebhookResponse call() throws Exception {
+                System.out.println("Calling story api");
                 String response = HttpClientUtil.post(url, rawRequest);
-                System.out.println(response);
                 ObjectMapper mapper = new ObjectMapper();
                 return mapper.readValue(response, DialogflowWebhookResponse.class);
             }
