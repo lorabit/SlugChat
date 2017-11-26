@@ -48,14 +48,18 @@ public class DialogflowResultProducerModule extends AbstractModule {
         return service.submit(new Callable<String>() {
             @Override
             public String call() throws Exception {
-                AIRequest request = new AIRequest(speech);
-                request.setSessionId(Long.toString(profileId));
-                request.setQuery(speech);
+                AIRequest request;
                 if(!Strings.isNullOrEmpty(eventName)){
+                    request = new AIRequest();
+                    request.setQuery(null);
                     AIEvent event = new AIEvent(eventName);
                     request.setEvent(event);
-                    System.out.println(eventName);
+                }else{
+                    request = new AIRequest(speech);
+                    request.setQuery(speech);
                 }
+                request.setSessionId(Long.toString(profileId));
+
                 System.out.println(request);
                 AIResponse aiResponse = aiDataService.request(request);
                 return aiResponse.getResult().getFulfillment().getSpeech();
