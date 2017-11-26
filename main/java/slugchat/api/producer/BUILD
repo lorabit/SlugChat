@@ -17,5 +17,7 @@ java_library(
           "//third_party:com_google_inject_guice",
           "//third_party:com_google_guava_guava",
           "//main/java/slugchat/constants",
+            "@com_fasterxml_jackson_core_jackson_core//jar",
+            "@com_fasterxml_jackson_core_jackson_databind//jar"
     ]
 )

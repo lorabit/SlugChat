@@ -11,6 +11,7 @@ public final class DialogflowConstants {
     public static final String PARAM_STORY_TITLE = "story-title";
 
     public static final String INTENT_POEM = "poem";
+    public static final String INTENT_STORY = "story";
     public static final String INTENT_STORY_WITH_TITLE = "story - title";
 
     public static final ImmutableMap<String, String> EVENT_FROM_COMMAND = ImmutableMap.of(

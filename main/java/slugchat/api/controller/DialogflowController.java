@@ -53,7 +53,7 @@ public class DialogflowController {
 
 
     @javax.inject.Inject
-    public DialogflowController(@Value("${db.url}") String dbUrl){
+    public DialogflowController(@Value("${db.url}") String dbUrl, @Value("${api.story.url}") String storyApiUrl){
         Guice.createInjector(
                 new AbstractModule() {
                     @Override
@@ -63,7 +63,7 @@ public class DialogflowController {
                 },
         new ApiExecutorServiceProducerModule(),
                 new SlugChatMyBatisModule(dbUrl),
-                new WebhookResponseProducerModule()
+                new WebhookResponseProducerModule(storyApiUrl)
                 )
                 .injectMembers(this);
     }

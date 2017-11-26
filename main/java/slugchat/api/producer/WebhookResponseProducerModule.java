@@ -6,10 +6,7 @@ import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provider;
 import com.google.inject.Provides;
-import main.java.slugchat.api.annotations.ApiExecutorService;
-import main.java.slugchat.api.annotations.PoemResult;
-import main.java.slugchat.api.annotations.StoryResult;
-import main.java.slugchat.api.annotations.WebhookResponse;
+import main.java.slugchat.api.annotations.*;
 import main.java.slugchat.api.models.DialogflowWebhookRequest;
 import main.java.slugchat.api.models.DialogflowWebhookResponse;
 import main.java.slugchat.constants.DialogflowConstants;
@@ -26,10 +23,17 @@ public class WebhookResponseProducerModule extends AbstractModule{
             "这道题小虫虫不会做"
     );
 
+    private String storyApiUrl;
+
+    public WebhookResponseProducerModule(String storyApiUrl){
+        this.storyApiUrl = storyApiUrl;
+    }
+
     @Override
     protected void configure() {
         install(new PoemResultProducerModule());
         install(new StoryResultProducerModule());
+        install(new StoryApiResponseProducerModule(storyApiUrl));
     }
 
     @Provides
@@ -38,6 +42,7 @@ public class WebhookResponseProducerModule extends AbstractModule{
            @ApiExecutorService ListeningExecutorService executorService,
            @PoemResult ListenableFuture<DialogflowWebhookResponse> poemResult,
             @StoryResult ListenableFuture<DialogflowWebhookResponse> storyResult,
+            @StoryApiResponse ListenableFuture<DialogflowWebhookResponse> storyApiResult,
             DialogflowWebhookRequest request
             ){
         return executorService.submit(new Callable<DialogflowWebhookResponse>() {
@@ -45,6 +50,8 @@ public class WebhookResponseProducerModule extends AbstractModule{
             public DialogflowWebhookResponse call() throws Exception {
                 if(request.getResult().getMetadata().getIntentName().equals(DialogflowConstants.INTENT_POEM))
                     return poemResult.get();
+                if(request.getResult().getMetadata().getIntentName().equals(DialogflowConstants.INTENT_STORY))
+                    return storyApiResult.get();
                 if(request.getResult().getMetadata().getIntentName().equals(DialogflowConstants.INTENT_STORY_WITH_TITLE))
                     return storyResult.get();
 

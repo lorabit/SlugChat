@@ -16,6 +16,7 @@ kill `cat ~/slugchat/api.pid`
 bazel-bin/main/java/slugchat/api/bin \
   --server.port=8080 \
   --db.url="jdbc:mysql://slugchat-test.cqpr0kxypucj.us-west-2.rds.amazonaws.com/slugchat?user=root&password=password&useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true" \
+  --api.story.url="http://ec2-34-209-145-229.us-west-2.compute.amazonaws.com:3000/get_story" \
   >> ~/slugchat/api.out 2>>~/slugchat/api.err \
   &
 echo $! > ~/slugchat/api.pid
