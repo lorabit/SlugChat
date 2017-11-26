@@ -52,7 +52,7 @@ public class DialogflowResultProducerModule extends AbstractModule {
                 request.setSessionId(Long.toString(profileId));
                 request.setQuery(speech);
                 if(!Strings.isNullOrEmpty(eventName)){
-                    AIEvent event = new AIEvent();
+                    AIEvent event = new AIEvent(eventName);
                     event.setName(eventName);
                     request.setEvent(event);
                 }
