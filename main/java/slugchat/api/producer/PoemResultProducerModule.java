@@ -72,6 +72,7 @@ public class PoemResultProducerModule extends AbstractModule {
         return executorService.submit(new Callable<DialogflowWebhookResponse>() {
             @Override
             public DialogflowWebhookResponse call() throws Exception {
+                System.out.println("Producing poem result...");
                 Random rand = new Random();
                 DialogflowWebhookResponse response = new DialogflowWebhookResponse();
                 ImmutableList<Poem> result;
