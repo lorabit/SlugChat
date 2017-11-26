@@ -8,6 +8,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import main.java.slugchat.api.annotations.RawRequest;
 import main.java.slugchat.api.annotations.WebhookResponse;
 import main.java.slugchat.api.models.DialogflowWebhookRequest;
 import main.java.slugchat.api.models.DialogflowWebhookResponse;
@@ -51,6 +52,16 @@ public class DialogflowController {
         }
     };
 
+    String rawRequest;
+
+    @RawRequest
+    Provider<String> rawRequestProvider = new Provider<String>() {
+        @Override
+        public String get() {
+            return rawRequest;
+        }
+    };
+
 
     @javax.inject.Inject
     public DialogflowController(@Value("${db.url}") String dbUrl, @Value("${api.story.url}") String storyApiUrl){
@@ -59,6 +70,7 @@ public class DialogflowController {
                     @Override
                     protected void configure() {
                         bind(DialogflowWebhookRequest.class).toProvider(requestProvider);
+                        bind(String.class).annotatedWith(RawRequest.class).toProvider(rawRequestProvider);
                     }
                 },
         new ApiExecutorServiceProducerModule(),
@@ -76,6 +88,7 @@ public class DialogflowController {
         String jsonString = CharStreams.toString(new InputStreamReader(request.getInputStream(), Charsets.UTF_8));
         ObjectMapper mapper = new ObjectMapper();
         System.out.println(jsonString);
+        rawRequest = jsonString;
         userRequest = mapper.readValue(jsonString,DialogflowWebhookRequest.class);
         return responseProvider.get().get();
     }
