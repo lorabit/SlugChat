@@ -53,7 +53,6 @@ public class DialogflowResultProducerModule extends AbstractModule {
                 request.setQuery(speech);
                 if(!Strings.isNullOrEmpty(eventName)){
                     AIEvent event = new AIEvent(eventName);
-                    event.setName(eventName);
                     request.setEvent(event);
                     System.out.println(eventName);
                 }
