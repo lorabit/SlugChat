@@ -6,6 +6,7 @@ java_library(
     name = "producers",
     srcs = glob(["*.java"]),
     deps = [
+        "//main/java/slugchat/constants",
         "//main/java/slugchat/mobile/service/implementation/annotations",
         "//main/java/slugchat/mybatis/impl",
         "@com_google_guava_guava//jar",
