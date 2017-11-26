@@ -1,26 +1,40 @@
 package main.java.slugchat.mobile.service.implementation.producers;
 
 import ai.api.AIDataService;
+import ai.api.model.AIEvent;
 import ai.api.model.AIRequest;
 import ai.api.model.AIResponse;
+import com.google.common.base.Strings;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.inject.AbstractModule;
+import com.google.inject.BindingAnnotation;
 import com.google.inject.Inject;
 import com.google.inject.Provides;
+import main.java.slugchat.constants.DialogflowConstants;
 import main.java.slugchat.mobile.service.implementation.annotations.*;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.concurrent.Callable;
 
 public class DialogflowResultProducerModule extends AbstractModule {
 
-
-//    @Inject
-//    private AIDataService aiDataService;
-
+    @BindingAnnotation
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface DialogflowEventName{}
 
     @Override
     protected void configure() {
+    }
+
+    @Provides
+    @DialogflowEventName
+    String providesEventName(@RequestSpeechText String speech){
+        if(DialogflowConstants.EVENT_FROM_COMMAND.containsKey(speech)){
+            return DialogflowConstants.EVENT_FROM_COMMAND.get(speech);
+        }
+        return "";
     }
 
     @Provides
@@ -29,6 +43,7 @@ public class DialogflowResultProducerModule extends AbstractModule {
             @MobileExecutorService ListeningExecutorService service,
             AIDataService aiDataService,
             @RequestSpeechText String speech,
+            @DialogflowEventName String eventName,
             @RequestProfileId Long profileId){
         return service.submit(new Callable<String>() {
             @Override
@@ -36,10 +51,12 @@ public class DialogflowResultProducerModule extends AbstractModule {
                 AIRequest request = new AIRequest(speech);
                 request.setSessionId(Long.toString(profileId));
                 request.setQuery(speech);
-
-                System.out.println(aiDataService==null);
+                if(!Strings.isNullOrEmpty(eventName)){
+                    AIEvent event = new AIEvent();
+                    event.setName(eventName);
+                    request.setEvent(event);
+                }
                 AIResponse aiResponse = aiDataService.request(request);
-                System.out.println(aiResponse.toString());
                 return aiResponse.getResult().getFulfillment().getSpeech();
             }
         });

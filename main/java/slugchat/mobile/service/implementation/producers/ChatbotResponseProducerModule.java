@@ -55,13 +55,13 @@ public class ChatbotResponseProducerModule extends AbstractModule {
     @SelectedResult
     ListenableFuture<String> providesSelectedResult(
             @MobileExecutorService ListeningExecutorService service,
-            @CommandResponse String commandResponse,
+//            @CommandResponse String commandResponse,
             @BaiduResult ListenableFuture<String> baiduResult,
             @DialogflowResult ListenableFuture<String> dialogflowResult
     ){
-        if(commandResponse.length()>0){
-            return Futures.immediateFuture(commandResponse);
-        }
+//        if(commandResponse.length()>0){
+//            return Futures.immediateFuture(commandResponse);
+//        }
         ImmutableList<ListenableFuture<String>> futureResults = ImmutableList.of(baiduResult, dialogflowResult);
         ListenableFuture<List<String>> results = Futures.successfulAsList(futureResults);
         return service.submit(new Callable<String>() {
