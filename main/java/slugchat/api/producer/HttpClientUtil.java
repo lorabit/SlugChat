@@ -13,17 +13,16 @@ import java.net.URLEncoder;
 
 public class HttpClientUtil {
 
-    public static String post(String url, String payload) throws IOException{
+    public static String post(String url, String postData) throws IOException{
         URLConnection connection = new URL(url).openConnection();
         connection.setDoInput (true);
         connection.setDoOutput (true);
         connection.setUseCaches (false);
         connection.setRequestProperty("Content-Type","application/json");
+        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+        connection.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
         connection.connect();
-        DataOutputStream printout = new DataOutputStream(connection.getOutputStream ());
-        printout.writeBytes(URLEncoder.encode(payload,"UTF-8"));
-        printout.flush ();
-        printout.close ();
+        connection.getOutputStream ().write(postDataBytes);
         InputStream response = connection.getInputStream();
         String jsonString = CharStreams.toString(new InputStreamReader(response, Charsets.UTF_8));
         return jsonString;
