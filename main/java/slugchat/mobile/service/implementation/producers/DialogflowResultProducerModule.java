@@ -55,6 +55,7 @@ public class DialogflowResultProducerModule extends AbstractModule {
                     AIEvent event = new AIEvent(eventName);
                     event.setName(eventName);
                     request.setEvent(event);
+                    System.out.println(eventName);
                 }
                 System.out.println(request);
                 AIResponse aiResponse = aiDataService.request(request);
