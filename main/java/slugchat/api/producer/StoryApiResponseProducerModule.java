@@ -37,6 +37,7 @@ public class StoryApiResponseProducerModule extends AbstractModule {
             public DialogflowWebhookResponse call() throws Exception {
                 ObjectMapper mapper = new ObjectMapper();
                 String response = HttpClientUtil.post(url, mapper.writeValueAsString(request));
+                System.out.println(response);
                 return mapper.readValue(response, DialogflowWebhookResponse.class);
             }
         });
