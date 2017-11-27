@@ -1,5 +1,6 @@
 package main.java.slugchat.api.producer;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -50,8 +51,13 @@ public class WebhookResponseProducerModule extends AbstractModule{
             return poemResult.get();
         if(request.getResult().getMetadata().getIntentName().equals(DialogflowConstants.INTENT_STORY))
             return storyApiResult.get();
-        if(request.getResult().getMetadata().getIntentName().equals(DialogflowConstants.INTENT_STORY_WITH_TITLE))
+        if(request.getResult().getMetadata().getIntentName().equals(DialogflowConstants.INTENT_STORY_WITH_TITLE)) {
+            if(request.getResult().getParameters().containsKey(DialogflowConstants.PARAM_STORY_TITLE) &&
+                    Strings.isNullOrEmpty(request.getResult().getParameters().get(DialogflowConstants.PARAM_STORY_TITLE))){
+                return storyApiResult.get();
+            }
             return storyResult.get();
+        }
         DialogflowWebhookResponse defaultResponse = new DialogflowWebhookResponse();
         Random rand = new Random();
         defaultResponse.setSpeech(DEFAULT_RESPONSES.get(rand.nextInt(DEFAULT_RESPONSES.size())));
