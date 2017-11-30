@@ -22,4 +22,8 @@ public interface MobileService {
 
 
     ImmutableList<Story> listStoriesByEntityName(String entityName);
+
+
+    Song getSongById(int songId);
+    ImmutableList<Song> listSongsByTitle(String title);
 }

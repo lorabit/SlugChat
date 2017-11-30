@@ -34,6 +34,7 @@ public class SlugChatMyBatisModule extends MyBatisModule {
         addMapperClass(LogMapper.class);
         addMapperClass(PoemMapper.class);
         addMapperClass(StoryMapper.class);
+        addMapperClass(SongMapper.class);
     }
 
     protected Properties createTestProperties() {

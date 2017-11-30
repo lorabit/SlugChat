@@ -27,9 +27,11 @@ public class WebhookResponseProducerModule extends AbstractModule{
     );
 
     private String storyApiUrl;
+    private String songUrlPrefix;
 
-    public WebhookResponseProducerModule(String storyApiUrl){
+    public WebhookResponseProducerModule(String storyApiUrl, String songUrlPrefix){
         this.storyApiUrl = storyApiUrl;
+        this.songUrlPrefix = songUrlPrefix;
     }
 
     @Override
@@ -37,6 +39,7 @@ public class WebhookResponseProducerModule extends AbstractModule{
         install(new PoemResultProducerModule());
         install(new StoryResultProducerModule());
         install(new StoryApiResponseProducerModule(storyApiUrl));
+        install(new SongResultProducerModule(songUrlPrefix));
     }
 
     @Provides
@@ -45,6 +48,7 @@ public class WebhookResponseProducerModule extends AbstractModule{
            @PoemResult Provider<ListenableFuture<DialogflowWebhookResponse>> poemResult,
             @StoryResult Provider<ListenableFuture<DialogflowWebhookResponse>> storyResult,
             @StoryApiResponse Provider<ListenableFuture<DialogflowWebhookResponse>> storyApiResult,
+            @SongResult Provider<ListenableFuture<DialogflowWebhookResponse>> songResult,
             DialogflowWebhookRequest request
             ){
         if(request.getResult().getMetadata().getIntentName().equals(DialogflowConstants.INTENT_POEM))
@@ -57,6 +61,12 @@ public class WebhookResponseProducerModule extends AbstractModule{
                 return storyApiResult.get();
             }
             return storyResult.get();
+        }
+        if (request.getResult().getMetadata().getIntentName().equals(DialogflowConstants.INTENT_SONG)) {
+            return songResult.get();
+        }
+        if (request.getResult().getMetadata().getIntentName().equals(DialogflowConstants.INTENT_SONG_WITH_TITLE)) {
+            return songResult.get();
         }
         DialogflowWebhookResponse defaultResponse = new DialogflowWebhookResponse();
         Random rand = new Random();

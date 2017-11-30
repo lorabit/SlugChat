@@ -13,7 +13,7 @@ public class PoemDaoImpl implements PoemDao {
 
     @Override
     public Poem getPoemById(int poemId) {
-        return (Poem) this.sqlSession.selectOne("PoemMapper.getClient",poemId);
+        return (Poem) this.sqlSession.selectOne("PoemMapper.getPoemById",poemId);
     }
 
     @Override

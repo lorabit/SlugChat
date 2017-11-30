@@ -22,6 +22,9 @@ public class MobileServiceMapperImpl implements MobileService {
     @Inject
     private StoryMapper storyMapper;
 
+    @Inject
+    private SongMapper songMapper;
+
     @Override
     public Client getClientByClientId(Long clientId) {
         return this.clientMapper.getClient(clientId);
@@ -76,5 +79,15 @@ public class MobileServiceMapperImpl implements MobileService {
     @Override
     public ImmutableList<Story> listStoriesByEntityName(String entityName) {
         return ImmutableList.copyOf(storyMapper.listStoriesByEntityName(entityName));
+    }
+
+    @Override
+    public Song getSongById(int songId) {
+        return this.songMapper.getSongById(songId);
+    }
+
+    @Override
+    public ImmutableList<Song> listSongsByTitle(String title) {
+        return ImmutableList.copyOf(this.songMapper.listSongsByTitle(title));
     }
 }

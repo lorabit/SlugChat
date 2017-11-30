@@ -14,4 +14,8 @@ public final class ContentFormatUtil {
     public static final String storyToSpeech(Story story){
         return story.getContent();
     }
+
+    public static final String soundUrlToSpeech(String url){
+        return "$"+url;
+    }
 }

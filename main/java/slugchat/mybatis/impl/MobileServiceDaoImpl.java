@@ -23,6 +23,9 @@ public class MobileServiceDaoImpl implements MobileService {
     @Inject
     private StoryDao storyDao;
 
+    @Inject
+    private SongDao songDao;
+
     @Override
     public Client getClientByClientId(Long clientId) {
         return this.clientDao.getClient(clientId);
@@ -72,5 +75,15 @@ public class MobileServiceDaoImpl implements MobileService {
     @Override
     public ImmutableList<Story> listStoriesByEntityName(String entityName) {
         return this.storyDao.listStoriesByEntityName(entityName);
+    }
+
+    @Override
+    public Song getSongById(int songId) {
+        return this.songDao.getSongById(songId);
+    }
+
+    @Override
+    public ImmutableList<Song> listSongsByTitle(String title) {
+        return this.songDao.listSongsByTitle(title);
     }
 }

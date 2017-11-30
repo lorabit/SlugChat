@@ -110,6 +110,7 @@ public class PoemResultProducerModule extends AbstractModule {
         return executorService.submit(new Callable<ImmutableList<Poem>>() {
             @Override
             public ImmutableList<Poem> call() throws Exception {
+
                 return mobileService.listPoemsWithAuthor(requestPoem.getAuthor());
             }
         });

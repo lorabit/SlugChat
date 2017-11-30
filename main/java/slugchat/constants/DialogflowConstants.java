@@ -9,10 +9,13 @@ public final class DialogflowConstants {
     public static final String PARAM_POEM_AUTHOR = "poem-author";
     public static final String PARAM_POEM_TITLE = "poem-title";
     public static final String PARAM_STORY_TITLE = "story-title";
+    public static final String PARAM_SONG_TITLE = "song-title";
 
     public static final String INTENT_POEM = "poem";
     public static final String INTENT_STORY = "story";
     public static final String INTENT_STORY_WITH_TITLE = "story - title";
+    public static final String INTENT_SONG = "song";
+    public static final String INTENT_SONG_WITH_TITLE = "song - title";
 
     public static final ImmutableMap<String, String> EVENT_FROM_COMMAND = ImmutableMap.of(
             "$hit","hit",
