@@ -14,8 +14,10 @@ import main.java.slugchat.api.models.DialogflowWebhookRequest;
 import main.java.slugchat.api.models.DialogflowWebhookResponse;
 import main.java.slugchat.constants.DialogflowConstants;
 import main.java.slugchat.constants.KnowledgeBaseConstants;
+import main.java.slugchat.mybatis.domain.Log;
 import main.java.slugchat.mybatis.domain.Song;
 import main.java.slugchat.mybatis.impl.MobileService;
+import org.joda.time.Instant;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -52,12 +54,22 @@ public class SongResultProducerModule extends AbstractModule {
     @SongResult
     ListenableFuture<DialogflowWebhookResponse> providesSongResult(
             @ApiExecutorService ListeningExecutorService executorService,
-            @SelectedSong ListenableFuture<Song> song){
+            @SelectedSong ListenableFuture<Song> songListenableFuture,
+            DialogflowWebhookRequest request,
+            MobileService mobileService
+    ){
         return executorService.submit(new Callable<DialogflowWebhookResponse>() {
             @Override
             public DialogflowWebhookResponse call() throws Exception {
+                Song song = songListenableFuture.get();
+                Log log = new Log();
+                log.setProfileId(Long.parseLong(request.getSessionId()));
+                log.setCreateTime(Instant.now().getMillis());
+                log.setLogType(com.kidschat.service.mobile.Log.LogType.PLAY_SONG_VALUE);
+                log.setContent(Integer.toString(song.getSongId()));
+                mobileService.createLog(log);
                 DialogflowWebhookResponse response = new DialogflowWebhookResponse();
-                response.setSpeech(ContentFormatUtil.soundUrlToSpeech(songUrlPrefix+song.get().getSongId()+".mp3"));
+                response.setSpeech(ContentFormatUtil.soundUrlToSpeech(songUrlPrefix+song.getSongId()+".mp3"));
                 return response;
             }
         });
