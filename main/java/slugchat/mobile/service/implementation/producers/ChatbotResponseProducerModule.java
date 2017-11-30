@@ -16,19 +16,7 @@ import java.util.concurrent.Callable;
 
 public class ChatbotResponseProducerModule extends AbstractModule {
 
-    static final ImmutableList<String> START_RESPONSES = ImmutableList.of(
-            "小朋友，好久不见。\n 你可以跟我说：我要听故事。",
-            "你好啊，小朋友。\n 你有什么问题要问我吗？",
-            "小虫虫来啦。你想听小虫虫讲什么样的故事呢?"
-    );
-
-    static final ImmutableList<String> NOSPEECH_RESPONSES = ImmutableList.of(
-            "今天有什么有趣的事情吗？",
-            "小朋友，小虫虫可会讲故事了。",
-            "你不跟小虫虫说话，小虫虫很无聊。",
-            "你可以问小虫虫中国有多大。"
-    );
-
+    public final static String UNSUPPORTED_RESPONSE = "当前客户端不支持该功能，请升级！";
 
     @Override
     protected void configure() {
@@ -37,31 +25,12 @@ public class ChatbotResponseProducerModule extends AbstractModule {
     }
 
     @Provides
-    @CommandResponse
-    String providesCommandResponse( @RequestSpeechText String text){
-        if(text.startsWith("$")){
-            Random rand = new Random();
-            if(text.equals("$start")) {
-                return START_RESPONSES.get(rand.nextInt(START_RESPONSES.size()));
-            }
-            if(text.equals("$noSpeech{30}") || text.equals("$hit")){
-                return NOSPEECH_RESPONSES.get(rand.nextInt(NOSPEECH_RESPONSES.size()));
-            }
-        }
-        return "";
-    }
-
-    @Provides
     @SelectedResult
     ListenableFuture<String> providesSelectedResult(
             @MobileExecutorService ListeningExecutorService service,
-//            @CommandResponse String commandResponse,
             @BaiduResult ListenableFuture<String> baiduResult,
             @DialogflowResult ListenableFuture<String> dialogflowResult
     ){
-//        if(commandResponse.length()>0){
-//            return Futures.immediateFuture(commandResponse);
-//        }
         ImmutableList<ListenableFuture<String>> futureResults = ImmutableList.of(baiduResult, dialogflowResult);
         ListenableFuture<List<String>> results = Futures.successfulAsList(futureResults);
         return service.submit(new Callable<String>() {
@@ -84,12 +53,25 @@ public class ChatbotResponseProducerModule extends AbstractModule {
     @Provides
     ListenableFuture<ChatbotResponse> providesChatbotResponse(
             @MobileExecutorService ListeningExecutorService service,
-            @SelectedResult ListenableFuture<String> result
+            @SelectedResult ListenableFuture<String> result,
+            UserRequest userRequest
     ){
         return service.submit(new Callable<ChatbotResponse>() {
             @Override
             public ChatbotResponse call() throws Exception {
-                return ChatbotResponse.newBuilder().setText(result.get()).build();
+                String text = result.get();
+                ChatbotResponse.Builder builder = ChatbotResponse.newBuilder();
+                if(text.startsWith("$")){
+                    if(ClientVersionUtil.supportAudio(userRequest)) {
+                        builder.setResponseType(ChatbotResponse.ResponseType.AUDIO);
+                        builder.setText(text.substring(1));
+                    }else{
+                        builder.setText(UNSUPPORTED_RESPONSE);
+                    }
+                }else{
+                    builder.setText(text);
+                }
+                return builder.build();
             }
         });
     }
