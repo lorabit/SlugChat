@@ -26,6 +26,7 @@ public class DialogflowResultProducerModule extends AbstractModule {
 
     @Override
     protected void configure() {
+
     }
 
     @Provides
